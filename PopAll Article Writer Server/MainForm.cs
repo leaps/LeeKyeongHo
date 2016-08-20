@@ -146,12 +146,19 @@ namespace PopAll_Article_Writer_Server
 
         void ClientState()
         {
-            foreach (ListViewItem item in lv_login.Items)
+            Console.WriteLine("필터링");
+            while (true)
             {
-                if ((DateTime.Parse(item.SubItems[4].Text).Minute + 1).CompareTo(DateTime.Now) < 0)
-                    lv_login.Items.Remove(item);
+                foreach (ListViewItem item in lv_login.Items)
+                {
+                    if ((DateTime.Parse(item.SubItems[4].Text).AddMinutes(1)).CompareTo(DateTime.Now) < 0)
+                    {
+                        Console.WriteLine("제거");
+                        lv_login.Items.Remove(item);
+                    }
+                }
+                Thread.Sleep(10000);
             }
-            Thread.Sleep(10000);
         }
 
         void ModifyItem(ListView lv, string remoteIP, string rcv)
