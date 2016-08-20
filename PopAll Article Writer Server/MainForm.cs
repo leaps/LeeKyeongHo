@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace PopAll_Article_Writer_Server
     //이경호 병신
+    //이형준 자지1cm
 {
     public partial class MainForm : Form
     {

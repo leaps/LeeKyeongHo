@@ -41,7 +41,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.ShowIcon = false;
-            this.Text = "경호 Jam G";
+            this.Text = "Client";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
