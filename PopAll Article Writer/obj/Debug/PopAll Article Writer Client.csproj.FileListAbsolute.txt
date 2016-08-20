@@ -77,3 +77,8 @@ C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll 
 C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.MainForm.resources
 C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.Properties.Resources.resources
 C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.GenerateResource.Cache
+C:\Users\lho67\Source\Repos\LeeKyeongHo\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe.config
+C:\Users\lho67\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\Interop.WinHttp.dll
+C:\Users\lho67\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.ResolveComReference.cache
+C:\Users\lho67\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.exe
+C:\Users\lho67\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.pdb
