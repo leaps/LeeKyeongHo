@@ -50,31 +50,18 @@ namespace PopAll_Article_Writer_Server
         }
         private void bt_save_Click(object sender, EventArgs e)
         {
-            Util util = new Util();
-            util.SetDirectory(tb_id, tb_vpn, tb_article);
-            util.GetTxt(lv_login, tb_id.Text, 0);
-            util.GetTxt(lv_vpn, tb_vpn.Text, 1);
-            util.GetTxt(lv_article, tb_article.Text, 0);
-
-            util.SetTxt(lv_login, "ID.html", 0);
-            util.SetTxt(lv_vpn, "VPN.html", 1);
-            util.SetTxt(lv_article, "ARTICLE.html", 0);
+            
         }
         private void bt_reset_Click(object sender, EventArgs e)
         {
-            Util util = new Util();
-            util.GetDirectory(tb_id, tb_vpn, tb_article);
-            util.GetTxt(lv_login, tb_id.Text, 0);
-            util.GetTxt(lv_vpn, tb_vpn.Text, 1);
-            util.GetTxt(lv_article, tb_article.Text, 0);
+            
         }
         private void bt_start_Click(object sender, EventArgs e)
         {
-            new Util().SetTxt(lv_article, "index.html", 2);
         }
         private void bt_stop_Click(object sender, EventArgs e)
         {
-            new Util().SetTxt(lv_article, "index.html", 3);
+            
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
