@@ -145,10 +145,13 @@ namespace PopAll_Article_Writer_Server
 
         void ClientState()
         {
-            string remoteIP = ((IPEndPoint)remoteEP).Address.ToString();
             foreach (ListViewItem item in lv_login.Items)
             {
-                udpSocket.SendTo(Encoding.UTF8.GetBytes("연결확인"), new IPEndPoint(IPAddress.Parse(remoteIP), 2040));
+                udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
+                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                if (!rcv.Equals("연결성공"))
+                    lv_login.Items.Remove(item);
             }
         }
 

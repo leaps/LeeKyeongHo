@@ -47,14 +47,17 @@ namespace PopAll_Article_Writer_Client
             udpSocket.SendTo(Encoding.UTF8.GetBytes(ID + "|" + Reason), remoteEP);
         }
 
-        bool ClientState()
+        void ClientState()
         {
             try
             {
-                SendPacket("None", "서버연결");
-                return true;
+                byte[] receiveBuffer = new byte[512];
+                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                if (rcv.Equals("연결시도"))
+                    udpSocket.SendTo(Encoding.UTF8.GetBytes("연결성공"), remoteEP);
             }
-            catch { return false; }
+            catch {  }
         }
 
         void Work()
@@ -79,11 +82,6 @@ namespace PopAll_Article_Writer_Client
                 {
                     try
                     {
-                        if (!ClientState())
-                        {
-                            Console.WriteLine("실패");
-                            continue;
-                        }
                         if (LoginFail >= 1)
                         {
                             GetAccount();
