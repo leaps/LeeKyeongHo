@@ -69,3 +69,11 @@ C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\Interop
 C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.ResolveComReference.cache
 C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.exe
 C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\bin\Debug\DecaptcherLib.dll
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\bin\Debug\Interop.WinHttp.dll
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csprojResolveAssemblyReference.cache
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.MainForm.resources
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.Properties.Resources.resources
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.GenerateResource.Cache

@@ -165,6 +165,7 @@ namespace PopAll_Article_Writer_Server
                             ListViewItem lvi = new ListViewItem(remoteIP);
                             lvi.SubItems.Add(rcv.Split('|')[0]);
                             lvi.SubItems.Add(rcv.Split('|')[1]);
+                            lvi.SubItems.Add("");
                             lv_login.Items.Add(lvi);
                         }
                     }

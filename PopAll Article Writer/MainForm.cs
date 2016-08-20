@@ -60,11 +60,11 @@ namespace PopAll_Article_Writer_Client
         void Work()
         {
             udpSocket.Bind(localEP);
-            if (!ClientState())
-            {
-                Console.WriteLine("실패");
-            }
-            else if (Account.Equals("False"))
+            //if (!ClientState())
+            //{
+            //    Console.WriteLine("실패");
+            //}
+            if (Account.Equals("False"))
             {
                 Console.WriteLine("계정 불러오기 실패");
                 SendPacket("None", "계정 불러오기 실패");
