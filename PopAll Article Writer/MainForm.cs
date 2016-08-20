@@ -77,70 +77,74 @@ namespace PopAll_Article_Writer_Client
                 string[] Articletxt = wc.DownloadString("http://limejellys.dothome.co.kr/Article.txt").Split('\n');
                 while (write.IsAlive)
                 {
-                    if (!ClientState())
+                    try
                     {
-                        Console.WriteLine("실패");
-                        continue;
-                    }
-                    if (LoginFail >= 1)
-                    {
-                        GetAccount();
-                        LoginFail = 0;
-                    }
-                    if (ip_cnt == 0)
-                    {
-                        LogAdd(Account, "작업종료 성공 : " + success + " / 실패 : " + fail);
-                        SendPacket("None", "작업종료");
-                        write.Abort();
-                    }
-
-                    //if (write_cnt == 0)
-                    //    GetAccount();
-
-                    ID = Account.Split('/')[0];
-                    PW = Account.Split('/')[1];
-                    //Console.WriteLine("Work Method : " + ID + " / " + PW);
-                    //Console.WriteLine("Account : " + Account);
-
-                    //0. 실패 1. 성공   2. 글쓰기 불가능
-                    if (PopLogin(ID, PW))
-                    {
-                        LogAdd(Account, " - 로그인 성공 / 글 등록대기 60초");
-                        SendPacket(ID, "등록대기");
-                        for (; ;)
+                        if (!ClientState())
                         {
-                            Console.WriteLine("글작성 패킷 대기");
-                            byte[] receiveBuffer = new byte[512];
-                            int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
-                            string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-                            if (!rcv.Equals("작성시작"))
-                                continue;
-                            foreach (string Article in Articletxt)
+                            Console.WriteLine("실패");
+                            continue;
+                        }
+                        if (LoginFail >= 1)
+                        {
+                            GetAccount();
+                            LoginFail = 0;
+                        }
+                        if (ip_cnt == 0)
+                        {
+                            LogAdd(Account, "작업종료 성공 : " + success + " / 실패 : " + fail);
+                            SendPacket("None", "작업종료");
+                            write.Abort();
+                        }
+
+                        //if (write_cnt == 0)
+                        //    GetAccount();
+
+                        ID = Account.Split('/')[0];
+                        PW = Account.Split('/')[1];
+                        //Console.WriteLine("Work Method : " + ID + " / " + PW);
+                        //Console.WriteLine("Account : " + Account);
+
+                        //0. 실패 1. 성공   2. 글쓰기 불가능
+                        if (PopLogin(ID, PW))
+                        {
+                            LogAdd(Account, " - 로그인 성공 / 글 등록대기 60초");
+                            SendPacket(ID, "등록대기");
+                            for (;;)
                             {
-                                Console.WriteLine(Article);
-                                _subject = Article.Split('/')[0];
-                                _body = Article.Split('/')[1];
-                                int num = PopWrite(_subject, _body);
-                                if (num == 1)
-                                    success++;
-                                else if (num == 2)
-                                    GetAccount();
-                                else
-                                    fail++;
-                                //lb_count.Text = "글 등록이 되었습니다. : " + success + "회";
-                                //LogAdd("총: " + (success + fail) + " 성공: " + success + " 실패: " + fail);
+                                Console.WriteLine("글작성 패킷 대기");
+                                byte[] receiveBuffer = new byte[512];
+                                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+                                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                                if (!rcv.Equals("작성시작"))
+                                    continue;
+                                foreach (string Article in Articletxt)
+                                {
+                                    Console.WriteLine(Article);
+                                    _subject = Article.Split('/')[0];
+                                    _body = Article.Split('/')[1];
+                                    int num = PopWrite(_subject, _body);
+                                    if (num == 1)
+                                        success++;
+                                    else if (num == 2)
+                                        GetAccount();
+                                    else
+                                        fail++;
+                                    //lb_count.Text = "글 등록이 되었습니다. : " + success + "회";
+                                    //LogAdd("총: " + (success + fail) + " 성공: " + success + " 실패: " + fail);
+                                }
+                                break;
                             }
-                            break;
+                        }
+                        else
+                        {
+                            LoginFail++;
+                            LogAdd(Account, "로그인 실패 : " + LoginFail.ToString());
+                            SendPacket(ID, "로그인 실패");
+                            //Thread.Sleep(5100);
+                            Thread.Sleep(61000);
                         }
                     }
-                    else
-                    {
-                        LoginFail++;
-                        LogAdd(Account, "로그인 실패 : " + LoginFail.ToString());
-                        SendPacket(ID, "로그인 실패");
-                        //Thread.Sleep(5100);
-                        Thread.Sleep(61000);
-                    }
+                    catch { }
                 }
             }
         }
@@ -262,17 +266,21 @@ namespace PopAll_Article_Writer_Client
 
         string GetAccount()
         {
-            using (var WC = new WebClient())
+            try
             {
-                string[] RawID = WC.DownloadString("http://limejellys.dothome.co.kr/ID.txt").Split('\n');
-                string[] UsedID = WC.DownloadString(string.Format("http://limejellys.dothome.co.kr/UsedID{0}.html", Time)).Replace("<br>", string.Empty).Split('\n');
-                string[] Accounts = ReplaceStr(RawID, UsedID);
-                Account = Accounts[new Random().Next(0, Accounts.Length)];
-                if (!WC.DownloadString("http://limejellys.dothome.co.kr/usedid.php?id=" + Account).Contains("/"))
-                    return Account;
-                else
-                    return "False";
+                using (var WC = new WebClient())
+                {
+                    string[] RawID = WC.DownloadString("http://limejellys.dothome.co.kr/ID.txt").Split('\n');
+                    string[] UsedID = WC.DownloadString(string.Format("http://limejellys.dothome.co.kr/UsedID{0}.html", Time)).Replace("<br>", string.Empty).Split('\n');
+                    string[] Accounts = ReplaceStr(RawID, UsedID);
+                    Account = Accounts[new Random().Next(0, Accounts.Length)];
+                    if (!WC.DownloadString("http://limejellys.dothome.co.kr/usedid.php?id=" + Account).Contains("/"))
+                        return Account;
+                    else
+                        return "False";
+                }
             }
+            catch { return "False"; }
         }
 
         string[] ReplaceStr(string[] RawID, string[] UsedID)
