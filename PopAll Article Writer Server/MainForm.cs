@@ -131,7 +131,7 @@ namespace PopAll_Article_Writer_Server
 
                     Console.Write("IP : " + remoteIP);
                     Console.Write(DateTime.Now.ToShortTimeString() + " / 메세지 : ");
-                    Console.WriteLine(Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize));
+                    Console.WriteLine(Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize));                        
                     ModifyItem(lv_login, remoteIP, rcv);
 
                     //udpSocket.SendTo(receiveBuffer, receivedSize, SocketFlags.None, remoteEP);
@@ -168,7 +168,7 @@ namespace PopAll_Article_Writer_Server
             {
                 if (item.SubItems[0].Text.Equals(remoteIP))
                 {
-                    if (rcv.Equals("연결시도"))
+                    if (rcv.Equals("서버접속"))
                     {
                         item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         Modify = true;
@@ -197,7 +197,16 @@ namespace PopAll_Article_Writer_Server
             if (!Modify)
             {
                 Modify = false;
-                if (rcv.Contains("등록성공"))
+                if (rcv.Equals("서버접속"))
+                {
+                    ListViewItem lvi = new ListViewItem(remoteIP);
+                    lvi.SubItems.Add("None");
+                    lvi.SubItems.Add("작업대기중");
+                    lvi.SubItems.Add("");
+                    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    lv_login.Items.Add(lvi);
+                }
+                else if (rcv.Contains("등록성공"))
                 {
                     ListViewItem lvi = new ListViewItem(remoteIP);
                     lvi.SubItems.Add(rcv.Split('|')[0]);
@@ -222,7 +231,7 @@ namespace PopAll_Article_Writer_Server
         {
             //udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), remoteEP);
             
-            foreach (ListViewItem item in lv_login.Items)
+            foreach (ListViewItem item in lv_login.Items) //<- for int i <- i++ < 4
             {
                 //EndPoint remoteEP = new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040);
                 udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
