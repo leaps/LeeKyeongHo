@@ -6,9 +6,6 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace PopAll_Article_Writer_Server
-    //이경호 병신
-    //asdasd
-    //dsdsdsds
 {
     public partial class MainForm : Form
     {
