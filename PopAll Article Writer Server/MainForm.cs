@@ -14,6 +14,10 @@ namespace PopAll_Article_Writer_Server
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }
+        void SendPacket(string ID, string Reason)
+        {
+            udpSocket.SendTo(Encoding.UTF8.GetBytes(ID + "|" + Reason), remoteEP);
+        }
         private void bt_id_Click(object sender, EventArgs e)
         {
             try
@@ -123,52 +127,12 @@ namespace PopAll_Article_Writer_Server
                     string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
                     string remoteIP = ((IPEndPoint)remoteEP).Address.ToString();
 
-                    Console.Write(DateTime.Now.ToShortTimeString() + " 메세지 : ");
+                    Console.Write("IP : " + remoteIP);
+                    Console.Write(DateTime.Now.ToShortTimeString() + " / 메세지 : ");
                     Console.WriteLine(Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize));
-                    Console.WriteLine(remoteIP);
 
-                    bool Modify = false;
-                    foreach (ListViewItem item in lv_login.Items)
-                    {
-                        if (item.SubItems[0].Text.Equals(remoteIP))
-                        {
-                            if (rcv.Contains("등록성공"))
-                            {
-                                item.SubItems[1].Text = rcv.Split('|')[0];
-                                item.SubItems[2].Text = rcv.Split('|')[1];
-                                item.SubItems[3].Text = "Article " + rcv.Split('|')[2] + ", IP " + rcv.Split('|')[3];
-                                Modify = true;
-                                break;
-                            }
-                            else
-                            {
-                                item.SubItems[1].Text = rcv.Split('|')[0];
-                                item.SubItems[2].Text = rcv.Split('|')[1];
-                                Modify = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!Modify)
-                    {
-                        Modify = false;
-                        if (rcv.Contains("등록성공"))
-                        {
-                            ListViewItem lvi = new ListViewItem(remoteIP);
-                            lvi.SubItems.Add(rcv.Split('|')[0]);
-                            lvi.SubItems.Add(rcv.Split('|')[1]);
-                            lvi.SubItems.Add("Article " + rcv.Split('|')[2] + ", IP " + rcv.Split('|')[3]);
-                            lv_login.Items.Add(lvi);
-                        }
-                        else
-                        {
-                            ListViewItem lvi = new ListViewItem(remoteIP);
-                            lvi.SubItems.Add(rcv.Split('|')[0]);
-                            lvi.SubItems.Add(rcv.Split('|')[1]);
-                            lvi.SubItems.Add("");
-                            lv_login.Items.Add(lvi);
-                        }
-                    }
+                    ModifyItem(lv_login, remoteIP, rcv);
+
                     //udpSocket.SendTo(receiveBuffer, receivedSize, SocketFlags.None, remoteEP);
 
                     //ListViewItem lvi = new ListViewItem(remoteIP);
@@ -181,15 +145,55 @@ namespace PopAll_Article_Writer_Server
 
         void ClientState()
         {
-            for (;;)
+            string remoteIP = ((IPEndPoint)remoteEP).Address.ToString();
+            foreach (ListViewItem item in lv_login.Items)
             {
-                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
-                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-                string remoteIP = ((IPEndPoint)remoteEP).Address.ToString();
-                if (rcv.Contains("서버연결"))
+                udpSocket.SendTo(Encoding.UTF8.GetBytes("연결확인"), new IPEndPoint(IPAddress.Parse(remoteIP), 2040));
+            }
+        }
+
+        void ModifyItem(ListView lv, string remoteIP, string rcv)
+        {
+            bool Modify = false;
+            foreach (ListViewItem item in lv.Items)
+            {
+                if (item.SubItems[0].Text.Equals(remoteIP))
+                {
+                    if (rcv.Contains("등록성공"))
+                    {
+                        item.SubItems[1].Text = rcv.Split('|')[0];
+                        item.SubItems[2].Text = rcv.Split('|')[1];
+                        item.SubItems[3].Text = "Article " + rcv.Split('|')[2] + ", IP " + rcv.Split('|')[3];
+                        Modify = true;
+                        break;
+                    }
+                    else
+                    {
+                        item.SubItems[1].Text = rcv.Split('|')[0];
+                        item.SubItems[2].Text = rcv.Split('|')[1];
+                        Modify = true;
+                        break;
+                    }
+                }
+            }
+            if (!Modify)
+            {
+                Modify = false;
+                if (rcv.Contains("등록성공"))
                 {
                     ListViewItem lvi = new ListViewItem(remoteIP);
+                    lvi.SubItems.Add(rcv.Split('|')[0]);
                     lvi.SubItems.Add(rcv.Split('|')[1]);
+                    lvi.SubItems.Add("Article " + rcv.Split('|')[2] + ", IP " + rcv.Split('|')[3]);
+                    lv_login.Items.Add(lvi);
+                }
+                else
+                {
+                    ListViewItem lvi = new ListViewItem(remoteIP);
+                    lvi.SubItems.Add(rcv.Split('|')[0]);
+                    lvi.SubItems.Add(rcv.Split('|')[1]);
+                    lvi.SubItems.Add("");
+                    lv_login.Items.Add(lvi);
                 }
             }
         }
