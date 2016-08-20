@@ -1,0 +1,71 @@
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csprojResolveAssemblyReference.cache
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.MainForm.resources
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.GenerateResource.Cache
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\obj\Debug\Interop.WinHttp.dll
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.ResolveComReference.cache
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\bin\Debug\DecaptcherLib.dll
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe.config
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.Properties.Resources.resources
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.pdb
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.exe
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe.config
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\obj\Debug\Interop.WinHttp.dll
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.ResolveComReference.cache
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.exe
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\bin\Debug\DecaptcherLib.dll
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\bin\Debug\DotRas.dll
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csprojResolveAssemblyReference.cache
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.MainForm.resources
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.Properties.Resources.resources
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.GenerateResource.Cache
+C:\Users\형준\Desktop\PopAll Article Writer(2)\PopAll Article Writer\bin\Debug\Interop.WinHttp.dll
+C:\Users\lho67\Documents\Visual Studio 2015\Projects\PopAll Article Writer\PopAll Article Writer\bin\Debug\Interop.WinHttp.dll
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe.config
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\obj\Debug\Interop.WinHttp.dll
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.exe
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.pdb
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.pdb
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\bin\Debug\DecaptcherLib.dll
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\bin\Debug\Interop.WinHttp.dll
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.MainForm.resources
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.Properties.Resources.resources
+C:\Users\Administrator\Desktop\PopAll Article Writer\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.GenerateResource.Cache
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe.config
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\obj\Debug\Interop.WinHttp.dll
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.ResolveComReference.cache
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.exe
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\bin\Debug\DecaptcherLib.dll
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\bin\Debug\Interop.WinHttp.dll
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csprojResolveAssemblyReference.cache
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.MainForm.resources
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.Properties.Resources.resources
+C:\Users\형준\Desktop\PopAll Article Writer (2)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.GenerateResource.Cache
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe.config
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\obj\Debug\Interop.WinHttp.dll
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.ResolveComReference.cache
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.exe
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.pdb
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\bin\Debug\DecaptcherLib.dll
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\bin\Debug\Interop.WinHttp.dll
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csprojResolveAssemblyReference.cache
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.MainForm.resources
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\obj\Debug\PopAll_Article_Writer_Client.Properties.Resources.resources
+C:\Users\형준\Desktop\PopAll Article Writer(4)\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.GenerateResource.Cache
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\bin\Debug\PopAll Article Writer Client.exe.config
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\Interop.WinHttp.dll
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.csproj.ResolveComReference.cache
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.exe
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer\obj\Debug\PopAll Article Writer Client.pdb
