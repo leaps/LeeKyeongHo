@@ -57,6 +57,7 @@
             this.tb_id = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tc_main.SuspendLayout();
             this.tp_1.SuspendLayout();
             this.tp_2.SuspendLayout();
@@ -95,7 +96,8 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader8,
-            this.columnHeader9});
+            this.columnHeader9,
+            this.columnHeader10});
             this.lv_login.Location = new System.Drawing.Point(6, 7);
             this.lv_login.Name = "lv_login";
             this.lv_login.Size = new System.Drawing.Size(534, 266);
@@ -329,6 +331,10 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Time";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -386,6 +392,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
     }
 }
 

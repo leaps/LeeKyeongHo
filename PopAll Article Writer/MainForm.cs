@@ -47,26 +47,33 @@ namespace PopAll_Article_Writer_Client
             udpSocket.SendTo(Encoding.UTF8.GetBytes(ID + "|" + Reason), remoteEP);
         }
 
-        //void ClientState()
-        //{
-        //    try
-        //    {
-        //        Console.WriteLine("패킷대기");
-        //        while (true)
-        //        {
-        //            byte[] receiveBuffer = new byte[512];
-        //            int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
-        //            string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-        //            Console.WriteLine("Receive Pakcet : " + rcv);
-        //            if (rcv.Equals("연결시도"))
-        //            {
-        //                udpSocket.SendTo(Encoding.UTF8.GetBytes("연결성공"), remoteEP);
-        //                Console.WriteLine("연결성공");
-        //            }
-        //        }
-        //    }
-        //    catch {  }
-        //}
+        void ClientState()
+        {
+            try
+            {
+                //Console.WriteLine("패킷대기");
+                //while (true)
+                //{
+                //    byte[] receiveBuffer = new byte[512];
+                //    int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+                //    string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                //    Console.WriteLine("Receive Pakcet : " + rcv);
+                //    if (rcv.Equals("연결시도"))
+                //    {
+                //        udpSocket.SendTo(Encoding.UTF8.GetBytes("연결성공"), remoteEP);
+                //        Console.WriteLine("연결성공");
+                //    }
+                //}
+
+                while (true)
+                {
+                    udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), remoteEP);
+                    Console.WriteLine("연결시도");
+                    Thread.Sleep(3000);
+                }
+            }
+            catch { }
+        }
 
         void Work()
         {
@@ -358,7 +365,7 @@ namespace PopAll_Article_Writer_Client
                 udpSocket.Bind(localEP);
                 GetAccount();
                 new Thread(ProcessState).Start();
-                //new Thread(ClientState).Start();
+                new Thread(ClientState).Start();
                 Console.WriteLine("아이피 추가 완료");
             }
             //GetAccount();

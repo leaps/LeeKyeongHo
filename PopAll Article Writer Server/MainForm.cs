@@ -95,6 +95,7 @@ namespace PopAll_Article_Writer_Server
         private void button1_Click(object sender, EventArgs e)
         {
             new Thread(ClientState).Start();
+            //ClientState();
 
             //string Time = string.Format("{0:yyyyMMdd}", DateTime.Now);
             //string[] IPs = new System.Net.WebClient().DownloadString("http://limejellys.dothome.co.kr/IP" + Time + ".html").Split('\n');
@@ -113,7 +114,7 @@ namespace PopAll_Article_Writer_Server
 
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2048);
-        EndPoint remoteEP = new IPEndPoint(IPAddress.None, 2040);
+        EndPoint remoteEP = new IPEndPoint(IPAddress.None, 204);
         byte[] receiveBuffer = new byte[512];
 
         void StartServer()
@@ -131,7 +132,6 @@ namespace PopAll_Article_Writer_Server
                     Console.Write("IP : " + remoteIP);
                     Console.Write(DateTime.Now.ToShortTimeString() + " / 메세지 : ");
                     Console.WriteLine(Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize));
-
                     ModifyItem(lv_login, remoteIP, rcv);
 
                     //udpSocket.SendTo(receiveBuffer, receivedSize, SocketFlags.None, remoteEP);
@@ -148,9 +148,10 @@ namespace PopAll_Article_Writer_Server
         {
             foreach (ListViewItem item in lv_login.Items)
             {
-                try { udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040)); }
-                catch { lv_login.Items.Remove(item); }
+                if ((DateTime.Parse(item.SubItems[4].Text).Minute + 1).CompareTo(DateTime.Now) < 0)
+                    lv_login.Items.Remove(item);
             }
+            Thread.Sleep(10000);
         }
 
         void ModifyItem(ListView lv, string remoteIP, string rcv)
@@ -160,11 +161,19 @@ namespace PopAll_Article_Writer_Server
             {
                 if (item.SubItems[0].Text.Equals(remoteIP))
                 {
-                    if (rcv.Contains("등록성공"))
+                    if (rcv.Equals("연결시도"))
+                    {
+                        item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        Modify = true;
+                        break;
+                    }
+
+                    else if (rcv.Contains("등록성공"))
                     {
                         item.SubItems[1].Text = rcv.Split('|')[0];
                         item.SubItems[2].Text = rcv.Split('|')[1];
                         item.SubItems[3].Text = "Article " + rcv.Split('|')[2] + ", IP " + rcv.Split('|')[3];
+                        item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         Modify = true;
                         break;
                     }
@@ -172,6 +181,7 @@ namespace PopAll_Article_Writer_Server
                     {
                         item.SubItems[1].Text = rcv.Split('|')[0];
                         item.SubItems[2].Text = rcv.Split('|')[1];
+                        item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         Modify = true;
                         break;
                     }
@@ -186,6 +196,7 @@ namespace PopAll_Article_Writer_Server
                     lvi.SubItems.Add(rcv.Split('|')[0]);
                     lvi.SubItems.Add(rcv.Split('|')[1]);
                     lvi.SubItems.Add("Article " + rcv.Split('|')[2] + ", IP " + rcv.Split('|')[3]);
+                    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     lv_login.Items.Add(lvi);
                 }
                 else
@@ -194,6 +205,7 @@ namespace PopAll_Article_Writer_Server
                     lvi.SubItems.Add(rcv.Split('|')[0]);
                     lvi.SubItems.Add(rcv.Split('|')[1]);
                     lvi.SubItems.Add("");
+                    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     lv_login.Items.Add(lvi);
                 }
             }
