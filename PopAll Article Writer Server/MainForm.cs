@@ -95,6 +95,7 @@ namespace PopAll_Article_Writer_Server
         private void button1_Click(object sender, EventArgs e)
         {
             new Thread(ClientState).Start();
+
             //string Time = string.Format("{0:yyyyMMdd}", DateTime.Now);
             //string[] IPs = new System.Net.WebClient().DownloadString("http://limejellys.dothome.co.kr/IP" + Time + ".html").Split('\n');
             //for (int i = 0; i < IPs.Length; i++)
@@ -112,16 +113,16 @@ namespace PopAll_Article_Writer_Server
 
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2048);
-        EndPoint remoteEP = new IPEndPoint(IPAddress.None, 2048);
+        EndPoint remoteEP = new IPEndPoint(IPAddress.None, 2040);
         byte[] receiveBuffer = new byte[512];
 
         void StartServer()
         {
             udpSocket.Bind(localEP);
-            try
+            Console.WriteLine("UDP 에코 서버를 시작합니다");
+            while (true)
             {
-                Console.WriteLine("UDP 에코 서버를 시작합니다");
-                while (true)
+                try
                 {
                     int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
                     string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
@@ -139,19 +140,16 @@ namespace PopAll_Article_Writer_Server
                     //    lvi.SubItems.Add(rcv.Split('|')[0]);
                     //    lvi.SubItems.Add("Article " + rcv.Split('|')[1] + ", IP " + rcv.Split('|')[2]);
                 }
+                catch { }
             }
-            catch (Exception x) { Console.WriteLine(x.ToString()); };
         }
 
         void ClientState()
         {
             foreach (ListViewItem item in lv_login.Items)
             {
-                udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
-                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
-                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-                if (!rcv.Equals("연결성공"))
-                    lv_login.Items.Remove(item);
+                try { udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040)); }
+                catch { lv_login.Items.Remove(item); }
             }
         }
 

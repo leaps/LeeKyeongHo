@@ -47,22 +47,29 @@ namespace PopAll_Article_Writer_Client
             udpSocket.SendTo(Encoding.UTF8.GetBytes(ID + "|" + Reason), remoteEP);
         }
 
-        void ClientState()
-        {
-            try
-            {
-                byte[] receiveBuffer = new byte[512];
-                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
-                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-                if (rcv.Equals("연결시도"))
-                    udpSocket.SendTo(Encoding.UTF8.GetBytes("연결성공"), remoteEP);
-            }
-            catch {  }
-        }
+        //void ClientState()
+        //{
+        //    try
+        //    {
+        //        Console.WriteLine("패킷대기");
+        //        while (true)
+        //        {
+        //            byte[] receiveBuffer = new byte[512];
+        //            int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+        //            string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+        //            Console.WriteLine("Receive Pakcet : " + rcv);
+        //            if (rcv.Equals("연결시도"))
+        //            {
+        //                udpSocket.SendTo(Encoding.UTF8.GetBytes("연결성공"), remoteEP);
+        //                Console.WriteLine("연결성공");
+        //            }
+        //        }
+        //    }
+        //    catch {  }
+        //}
 
         void Work()
         {
-            udpSocket.Bind(localEP);
             if (Account.Equals("False"))
             {
                 Console.WriteLine("계정 불러오기 실패");
@@ -348,8 +355,10 @@ namespace PopAll_Article_Writer_Client
             //    key.SetValue("PopAll", Application.ExecutablePath.ToString());
             if (new WebClient().DownloadString("http://limejellys.dothome.co.kr/AddIP.php").Contains("Done."))
             {
+                udpSocket.Bind(localEP);
                 GetAccount();
                 new Thread(ProcessState).Start();
+                //new Thread(ClientState).Start();
                 Console.WriteLine("아이피 추가 완료");
             }
             //GetAccount();
