@@ -164,6 +164,7 @@
             this.bt_stop.TabIndex = 8;
             this.bt_stop.Text = "Stop";
             this.bt_stop.UseVisualStyleBackColor = true;
+            this.bt_stop.Click += new System.EventHandler(this.bt_stop_Click);
             // 
             // lv_log
             // 
@@ -269,6 +270,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "PopAll Article Writer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.gb_list.ResumeLayout(false);
             this.cm_id.ResumeLayout(false);

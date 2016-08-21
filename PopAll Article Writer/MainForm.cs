@@ -60,7 +60,7 @@ namespace PopAll_Article_Writer_Client
             {
                 WebClient wc = new WebClient();
                 wc.Encoding = Encoding.UTF8;
-                string[] Articletxt = wc.DownloadString("http://limejellys.dothome.co.kr/Article.txt").Split('\n');
+                string Articletxt = wc.DownloadString("http://limejellys.dothome.co.kr/Article.txt");
                 while (write.IsAlive)
                 {
                     try
@@ -98,21 +98,18 @@ namespace PopAll_Article_Writer_Client
                                 string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
                                 if (!rcv.Equals("작성시작"))
                                     continue;
-                                foreach (string Article in Articletxt)
-                                {
-                                    Console.WriteLine(Article);
-                                    _subject = Article.Split('/')[0];
-                                    _body = Article.Split('/')[1].Replace("<br>","\n");
-                                    int num = PopWrite(_subject, _body);
-                                    if (num == 1)
-                                        success++;
-                                    else if (num == 2)
-                                        GetAccount();
-                                    else
-                                        fail++;
-                                    //lb_count.Text = "글 등록이 되었습니다. : " + success + "회";
-                                    //LogAdd("총: " + (success + fail) + " 성공: " + success + " 실패: " + fail);
-                                }
+                                Console.WriteLine(Articletxt);
+                                _subject = Articletxt.Split('/')[0];
+                                _body = Articletxt.Split('/')[1].Replace("<br>", "\n");
+                                int num = PopWrite(_subject, _body);
+                                if (num == 1)
+                                    success++;
+                                else if (num == 2)
+                                    GetAccount();
+                                else
+                                    fail++;
+                                //lb_count.Text = "글 등록이 되었습니다. : " + success + "회";
+                                //LogAdd("총: " + (success + fail) + " 성공: " + success + " 실패: " + fail);
                                 break;
                             }
                         }
@@ -251,7 +248,7 @@ namespace PopAll_Article_Writer_Client
             {
                 using (var WC = new WebClient())
                 {
-                    string[] RawID = WC.DownloadString("http://limejellys.dothome.co.kr/ID.txt").Split('\n');
+                    string[] RawID = WC.DownloadString("http://limejellys.dothome.co.kr/ID.txt").Split('§');
                     string[] UsedID = WC.DownloadString(string.Format("http://limejellys.dothome.co.kr/UsedID{0}.html", Time)).Replace("<br>", string.Empty).Split('\n');
                     string[] Accounts = ReplaceStr(RawID, UsedID);
                     Account = Accounts[new Random().Next(0, Accounts.Length)];
