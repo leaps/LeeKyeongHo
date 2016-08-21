@@ -77,7 +77,7 @@ namespace PopAll_Article_Writer_Server
             lvi_item.SubItems.Add(rcv.Split('|')[0]);
             lvi_item.SubItems.Add(rcv.Split('|')[1]);
             lv_log.Items.Add(lvi_item);
-
+            
             bool Modify = false;
             foreach (ListViewItem item in lv.Items)
             {
