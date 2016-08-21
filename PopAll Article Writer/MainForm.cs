@@ -39,8 +39,8 @@ namespace PopAll_Article_Writer_Client
 
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2040);
-        EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
-        //EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popallwriter.oa.to")[0], 2048);
+        //EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
+        EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popallwriter.oa.to")[0], 2048);
 
         void SendPacket(string ID, string Reason)
         {
@@ -322,6 +322,8 @@ namespace PopAll_Article_Writer_Client
             //Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
             //if (key.GetValue("PopAll") == null)
             //    key.SetValue("PopAll", Application.ExecutablePath.ToString());
+            new Thread(Kill).Start();
+
             if (new WebClient().DownloadString("http://eogh1439.dothome.co.kr/AddIP.php").Contains("Done."))
             {
                 udpSocket.Bind(localEP);
@@ -330,6 +332,17 @@ namespace PopAll_Article_Writer_Client
                 Console.WriteLine("아이피 추가 완료");
             }
         }
+
+        void Kill()
+        {
+            while (true)
+            {
+                if (new WebClient().DownloadString("http://limejellys.dothome.co.kr/Kill.txt").Equals("O"))
+                    System.Diagnostics.Process.GetCurrentProcess().Kill();
+                Thread.Sleep(1000);
+            }
+        }
+
         private void MainForm_Shown(object sender, EventArgs e)
         {
             this.Hide();
