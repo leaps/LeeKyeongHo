@@ -229,7 +229,7 @@ namespace PopAll_Article_Writer_Client
                 }
                 return false;
             }
-            catch (Exception x) { Console.WriteLine(x.ToString()); return false; }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); return false; }
         }
 
         string GetAccount()
