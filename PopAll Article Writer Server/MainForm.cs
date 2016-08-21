@@ -163,7 +163,7 @@ namespace PopAll_Article_Writer_Server
                 string str = string.Empty;
                 foreach (ListViewItem item in lv_id.Items)
                 {
-                    str += item.Text + "?";
+                    str += item.Text + ";";
                 }
                 http.Open("GET", variables.hostURI + variables.IDSendValue + str);
                 http.Send();
