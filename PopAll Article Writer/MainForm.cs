@@ -39,8 +39,8 @@ namespace PopAll_Article_Writer_Client
 
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2040);
-        //EndPoint remoteEP = new IPEndPoint(IPAddress.Loopback, 2048);
-        EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
+        //EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
+        EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popallwriter.oa.to")[0], 2048);
 
         void SendPacket(string ID, string Reason)
         {
@@ -316,9 +316,9 @@ namespace PopAll_Article_Writer_Client
         
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            if (key.GetValue("PopAll") == null)
-                key.SetValue("PopAll", Application.ExecutablePath.ToString());
+            //Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            //if (key.GetValue("PopAll") == null)
+            //    key.SetValue("PopAll", Application.ExecutablePath.ToString());
             if (new WebClient().DownloadString("http://eogh1439.dothome.co.kr/AddIP.php").Contains("Done."))
             {
                 udpSocket.Bind(localEP);
