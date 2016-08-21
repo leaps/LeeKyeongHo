@@ -158,11 +158,13 @@ namespace PopAll_Article_Writer_Server
             try
             {
                 WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
+                string str = string.Empty;
                 foreach (ListViewItem item in lv_id.Items)
                 {
-                    http.Open("GET", variables.hostURI + variables.IDSendValue + item.Text);
-                    http.Send();
+                    str += item.Text + "§";
                 }
+                http.Open("GET", variables.hostURI + variables.IDSendValue + str);
+                http.Send();
             }
             catch { }
         }
