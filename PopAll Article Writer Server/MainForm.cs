@@ -43,6 +43,23 @@ namespace PopAll_Article_Writer_Server
                     Console.Write("IP : " + remoteIP);
                     Console.Write(DateTime.Now.ToShortTimeString() + " / 메세지 : ");
                     Console.WriteLine(Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize));
+
+                    ListViewItem lvis = lv_list.FindItemWithText(remoteIP);
+                    if (lvis != null)
+                    {
+                        lvis.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+
+                    else
+                    {
+                        ListViewItem lvi = new ListViewItem(remoteIP);
+                        lvi.SubItems.Add("None");
+                        lvi.SubItems.Add("작업대기중");
+                        lvi.SubItems.Add("");
+                        lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        lv_list.Items.Add(lvi);
+                    }
+
                     ModifyItem(lv_list, remoteIP, rcv);
 
                     //udpSocket.SendTo(receiveBuffer, receivedSize, SocketFlags.None, remoteEP);
@@ -85,13 +102,13 @@ namespace PopAll_Article_Writer_Server
             {
                 if (item.SubItems[0].Text.Equals(remoteIP))
                 {
-                    if (rcv.Equals("서버접속"))
-                    {
-                        item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        Modify = true;
-                        break;
-                    }
-                    else if (rcv.Contains("등록성공"))
+                    //if (rcv.Contains("서버접속"))
+                    //{
+                    //    item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    //    Modify = true;
+                    //    break;
+                    //}
+                    if (rcv.Contains("등록성공"))
                     {
                         item.SubItems[1].Text = rcv.Split('|')[0];
                         item.SubItems[2].Text = rcv.Split('|')[1];
@@ -113,16 +130,16 @@ namespace PopAll_Article_Writer_Server
             if (!Modify)
             {
                 Modify = false;
-                if (rcv.Equals("서버접속"))
-                {
-                    ListViewItem lvi = new ListViewItem(remoteIP);
-                    lvi.SubItems.Add("None");
-                    lvi.SubItems.Add("작업대기중");
-                    lvi.SubItems.Add("");
-                    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                    lv_list.Items.Add(lvi);
-                }
-                else if (rcv.Contains("등록성공"))
+                //if (rcv.Contains("서버접속"))
+                //{
+                //    ListViewItem lvi = new ListViewItem(remoteIP);
+                //    lvi.SubItems.Add("None");
+                //    lvi.SubItems.Add("작업대기중");
+                //    lvi.SubItems.Add("");
+                //    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                //    lv_list.Items.Add(lvi);
+                //}
+                if (rcv.Contains("등록성공"))
                 {
                     ListViewItem lvi = new ListViewItem(remoteIP);
                     lvi.SubItems.Add(rcv.Split('|')[0]);
@@ -235,6 +252,7 @@ namespace PopAll_Article_Writer_Server
 
         private void 계정불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            lv_id.Items.Clear();
             OpenFileDialog op = new OpenFileDialog();
             if (op.ShowDialog() == DialogResult.OK)
             {
