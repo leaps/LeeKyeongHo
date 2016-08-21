@@ -58,6 +58,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tc_main.SuspendLayout();
             this.tp_1.SuspendLayout();
             this.tp_2.SuspendLayout();
@@ -335,12 +336,27 @@
             // 
             this.columnHeader10.Text = "Time";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "mnl",
+            "jlhlj",
+            "jhkjh",
+            "hjfgjg",
+            "hfutyf"});
+            this.comboBox1.Location = new System.Drawing.Point(424, 9);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 23);
+            this.comboBox1.TabIndex = 3;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(578, 336);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tc_main);
@@ -393,6 +409,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
