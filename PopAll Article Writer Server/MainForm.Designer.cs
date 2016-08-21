@@ -53,6 +53,7 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cm_id = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.계정불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.gb_list.SuspendLayout();
             this.cm_id.SuspendLayout();
             this.SuspendLayout();
@@ -242,7 +243,7 @@
             // 계정불러오기ToolStripMenuItem
             // 
             this.계정불러오기ToolStripMenuItem.Name = "계정불러오기ToolStripMenuItem";
-            this.계정불러오기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.계정불러오기ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.계정불러오기ToolStripMenuItem.Text = "계정 불러오기";
             this.계정불러오기ToolStripMenuItem.Click += new System.EventHandler(this.계정불러오기ToolStripMenuItem_Click);
             // 
@@ -302,5 +303,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ContextMenuStrip cm_id;
         private System.Windows.Forms.ToolStripMenuItem 계정불러오기ToolStripMenuItem;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

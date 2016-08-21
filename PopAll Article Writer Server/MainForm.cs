@@ -72,7 +72,6 @@ namespace PopAll_Article_Writer_Server
 
         void ModifyItem(ListView lv, string remoteIP, string rcv)
         {
-            string a = "Fucking Keyong Ho Sex King";
             ListViewItem lvi_item = new ListViewItem(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             lvi_item.SubItems.Add(remoteIP);
             lvi_item.SubItems.Add(rcv.Split('|')[0]);
@@ -144,10 +143,10 @@ namespace PopAll_Article_Writer_Server
 
         void SetArticle(string subject, string body)
         {
-            WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
-            string Articletxt = string.Format("{0}/{1}", subject, body);
             try
             {
+                WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
+                string Articletxt = string.Format("{0}/{1}", subject, body.Replace("\n", "<br>"));
                 http.Open("GET", variables.hostURI + variables.ArticleSendValue + Articletxt);
                 http.Send();
             }
@@ -161,7 +160,7 @@ namespace PopAll_Article_Writer_Server
                 WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
                 foreach (ListViewItem item in lv_id.Items)
                 {
-                    http.Open("GET", variables.hostURI + variables.IDSendValue + item);
+                    http.Open("GET", variables.hostURI + variables.IDSendValue + item.Text);
                     http.Send();
                 }
             }
@@ -197,7 +196,7 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_start_Click(object sender, EventArgs e)
         {
-            SetArticle(tb_subject.Text, tb_body.Text);
+            SetID();
         }
     }
 }

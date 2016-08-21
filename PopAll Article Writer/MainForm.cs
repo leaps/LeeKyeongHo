@@ -102,7 +102,7 @@ namespace PopAll_Article_Writer_Client
                                 {
                                     Console.WriteLine(Article);
                                     _subject = Article.Split('/')[0];
-                                    _body = Article.Split('/')[1];
+                                    _body = Article.Split('/')[1].Replace("<br>","\n");
                                     int num = PopWrite(_subject, _body);
                                     if (num == 1)
                                         success++;
