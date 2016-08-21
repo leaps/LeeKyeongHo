@@ -192,26 +192,31 @@ namespace PopAll_Article_Writer_Server
         {
             try
             {
+                int i = 0;
                 int Max = int.Parse(tb_stand.Text);
-                for (; i <= lv_list.Items.Count; i += Max)
+                int Delay = int.Parse(tb_timer.Text) * 1000;
+
+                foreach (ListViewItem item in lv_list.Items)
                 {
-                    bool ready = true;
-                    for (int j = 0; j < Max; j++)
+                    if (item.SubItems[2].Text != "등록대기")
                     {
-                        if (lv_list.Items[j].SubItems[2].Text != "등록대기")
+                        Console.WriteLine("등록대기 체크");
+                        while (item.SubItems[2].Text.Equals("등록대기"))
                         {
-                            Console.WriteLine("로그인 진행중");
-                            ready = false;
-                            i -= Max;
+                            Thread.Sleep(500);
                             break;
                         }
-                        if (ready)
-                        {
-                            ready = true;
-                            udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
-                            Thread.Sleep(int.Parse(tb_timer.Text) * 1000);
-                        }
                     }
+
+                    i++;
+                    if (i.Equals(Max))
+                    {
+                        i = 0;
+                        Console.WriteLine("다음 목록");
+                        Thread.Sleep(Delay);
+                    }
+                    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                    Console.WriteLine("작성시작");
                 }
                 LogAdd("End Of Work");
             }
