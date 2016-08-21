@@ -187,6 +187,7 @@ namespace PopAll_Article_Writer_Server
 
         void Work()
         {
+            CheckForIllegalCrossThreadCalls = false;
             try
             {
                 int i = 0;
