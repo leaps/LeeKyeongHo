@@ -6,9 +6,9 @@ namespace PopAll_Article_Writer_Server
     class variables
     {
         public const string hostIP = "112.175.184.61";
-        public const string hostID = "limejellys";
-        public const string hostPW = "rudgh123";
-        public const string hostURI = "http://limejellys.dothome.co.kr/webftp/php/connector.php?";
+        public const string hostID = "eogh1439";
+        public const string hostPW = "eogh0508";
+        public const string hostURI = "http://eogh1439.dothome.co.kr/webftp/php/connector.php?";
         public static string ArticletxtDirec = Convert.ToBase64String(Encoding.Default.GetBytes("html/Article.txt")); //hdd/RequestUsers.txt
         public static string IDtxtDirec = Convert.ToBase64String(Encoding.Default.GetBytes("html/ID.txt")); //hdd/OkUsers.txt
 

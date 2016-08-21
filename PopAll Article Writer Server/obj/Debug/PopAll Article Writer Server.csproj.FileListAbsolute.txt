@@ -49,7 +49,6 @@ C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Wr
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\bin\Debug\PopAll Article Writer Server.exe
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\bin\Debug\PopAll Article Writer Server.pdb
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\PopAll Article Writer Server.csprojResolveAssemblyReference.cache
-C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\PopAll_Article_Writer_Server.Form1.resources
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\PopAll_Article_Writer_Server.MainForm.resources
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\PopAll_Article_Writer_Server.Properties.Resources.resources
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\PopAll Article Writer Server.csproj.GenerateResource.Cache
