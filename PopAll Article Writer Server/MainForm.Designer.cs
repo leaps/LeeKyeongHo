@@ -205,6 +205,7 @@
             this.tb_subject.Name = "tb_subject";
             this.tb_subject.Size = new System.Drawing.Size(229, 23);
             this.tb_subject.TabIndex = 1;
+            this.tb_subject.Text = "Title";
             // 
             // tb_body
             // 
@@ -213,6 +214,7 @@
             this.tb_body.Name = "tb_body";
             this.tb_body.Size = new System.Drawing.Size(229, 267);
             this.tb_body.TabIndex = 2;
+            this.tb_body.Text = "Body";
             // 
             // lv_id
             // 
@@ -242,7 +244,7 @@
             // 계정불러오기ToolStripMenuItem
             // 
             this.계정불러오기ToolStripMenuItem.Name = "계정불러오기ToolStripMenuItem";
-            this.계정불러오기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.계정불러오기ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.계정불러오기ToolStripMenuItem.Text = "계정 불러오기";
             this.계정불러오기ToolStripMenuItem.Click += new System.EventHandler(this.계정불러오기ToolStripMenuItem_Click);
             // 
