@@ -49,7 +49,6 @@ namespace PopAll_Article_Writer_Server
                     {
                         lvis.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     }
-
                     else
                     {
                         ListViewItem lvi = new ListViewItem(remoteIP);
@@ -179,9 +178,7 @@ namespace PopAll_Article_Writer_Server
                 WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
                 string str = string.Empty;
                 foreach (ListViewItem item in lv_id.Items)
-                {
                     str += item.Text + ";";
-                }
                 http.Open("GET", variables.hostURI + variables.IDSendValue + str);
                 http.Send();
             }
@@ -240,9 +237,11 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_start_Click(object sender, EventArgs e)
         {
+            SetArticle(tb_subject.Text, tb_body.Text);
+            SetID();
             th = new Thread(new ThreadStart(Work));
             th.Start();
-            LogAdd("Start");
+            LogAdd("Work Start");
             bt_start.Enabled = false;
             bt_stop.Enabled = true;
         }
@@ -250,7 +249,7 @@ namespace PopAll_Article_Writer_Server
         private void bt_stop_Click(object sender, EventArgs e)
         {
             th.Abort();
-            LogAdd("Stop");
+            LogAdd("Work Stop");
             bt_start.Enabled = true;
             bt_stop.Enabled = false;
         }
