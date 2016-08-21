@@ -40,7 +40,7 @@ namespace PopAll_Article_Writer_Client
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2040);
         //EndPoint remoteEP = new IPEndPoint(IPAddress.Loopback, 2048);
-        EndPoint remoteEP = new IPEndPoint(IPAddress.Parse("121.187.15.27"), 2048);
+        EndPoint remoteEP = new IPEndPoint(IPAddress.Parse("119.56.183.30"), 2048);
 
         void SendPacket(string ID, string Reason)
         {
@@ -248,7 +248,7 @@ namespace PopAll_Article_Writer_Client
             {
                 using (var WC = new WebClient())
                 {
-                    string[] RawID = WC.DownloadString("http://limejellys.dothome.co.kr/ID.txt").Split('§');
+                    string[] RawID = WC.DownloadString("http://limejellys.dothome.co.kr/ID.txt").Split('?');
                     string[] UsedID = WC.DownloadString(string.Format("http://limejellys.dothome.co.kr/UsedID{0}.html", Time)).Replace("<br>", string.Empty).Split('\n');
                     string[] Accounts = ReplaceStr(RawID, UsedID);
                     Account = Accounts[new Random().Next(0, Accounts.Length)];

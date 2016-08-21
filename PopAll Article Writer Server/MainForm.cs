@@ -23,8 +23,10 @@ namespace PopAll_Article_Writer_Server
         }
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2048);
-        EndPoint remoteEP = new IPEndPoint(IPAddress.None, 204);
+        EndPoint remoteEP = new IPEndPoint(IPAddress.None, 2040);
         byte[] receiveBuffer = new byte[512];
+        Thread th;
+        int i = 0;
 
         void StartServer()
         {
@@ -161,7 +163,7 @@ namespace PopAll_Article_Writer_Server
                 string str = string.Empty;
                 foreach (ListViewItem item in lv_id.Items)
                 {
-                    str += item.Text + "§";
+                    str += item.Text + "?";
                 }
                 http.Open("GET", variables.hostURI + variables.IDSendValue + str);
                 http.Send();
@@ -169,39 +171,43 @@ namespace PopAll_Article_Writer_Server
             catch { }
         }
 
-        int i = 0;
-
         void Work()
         {
-            //udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), remoteEP);
-
-            //foreach (ListViewItem item in lv_list.Items) //<- for int i <- i++ < 4
-            //{
-            //    //EndPoint remoteEP = new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040);
-            //    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
-            //}
-            int Max = int.Parse(tb_stand.Text);
-            for (; i <= lv_list.Items.Count; i += Max)
+            try
             {
-                bool ready = true;
-                for (int j = 0; j < Max; j++)
+                int Max = int.Parse(tb_stand.Text);
+                for (; i <= lv_list.Items.Count; i += Max)
                 {
-                    if (lv_list.Items[j].SubItems[2].Text != "등록대기")
+                    bool ready = true;
+                    for (int j = 0; j < Max; j++)
                     {
-                        Console.WriteLine("로그인 진행중");
-                        ready = false;
-                        i -= Max;
-                        break;
-                    }
-
-                    if (ready)
-                    {
-                        ready = true;
-                        udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
-                        Thread.Sleep(int.Parse(tb_timer.Text) * 1000);
+                        if (lv_list.Items[j].SubItems[2].Text != "등록대기")
+                        {
+                            Console.WriteLine("로그인 진행중");
+                            ready = false;
+                            i -= Max;
+                            break;
+                        }
+                        if (ready)
+                        {
+                            ready = true;
+                            udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                            Thread.Sleep(int.Parse(tb_timer.Text) * 1000);
+                        }
                     }
                 }
+                LogAdd("End Of Work");
             }
+            catch { }
+        }
+
+        void LogAdd(string value)
+        {
+            ListViewItem lvi = new ListViewItem(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            lvi.SubItems.Add("Program Message");
+            lvi.SubItems.Add("Program Message");
+            lvi.SubItems.Add(value);
+            lv_log.Items.Add(lvi);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -210,15 +216,21 @@ namespace PopAll_Article_Writer_Server
             new Thread(ClientState).Start();
         }
 
-
         private void bt_start_Click(object sender, EventArgs e)
         {
-            SetID();
+            th = new Thread(new ThreadStart(Work));
+            th.Start();
+            LogAdd("Start");
+            bt_start.Enabled = false;
+            bt_stop.Enabled = true;
         }
 
         private void bt_stop_Click(object sender, EventArgs e)
         {
-
+            th.Abort();
+            LogAdd("Stop");
+            bt_start.Enabled = true;
+            bt_stop.Enabled = false;
         }
 
         private void 계정불러오기ToolStripMenuItem_Click(object sender, EventArgs e)

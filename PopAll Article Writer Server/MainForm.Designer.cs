@@ -53,7 +53,6 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cm_id = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.계정불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.gb_list.SuspendLayout();
             this.cm_id.SuspendLayout();
             this.SuspendLayout();
@@ -158,6 +157,7 @@
             // 
             // bt_stop
             // 
+            this.bt_stop.Enabled = false;
             this.bt_stop.Location = new System.Drawing.Point(93, 480);
             this.bt_stop.Name = "bt_stop";
             this.bt_stop.Size = new System.Drawing.Size(75, 23);
@@ -194,12 +194,12 @@
             // columnHeader8
             // 
             this.columnHeader8.Text = "ID";
-            this.columnHeader8.Width = 77;
+            this.columnHeader8.Width = 122;
             // 
             // columnHeader9
             // 
             this.columnHeader9.Text = "Result";
-            this.columnHeader9.Width = 147;
+            this.columnHeader9.Width = 130;
             // 
             // tb_subject
             // 
@@ -269,7 +269,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "PopAll Article Writer";
+            this.Text = "PopAll Article Writer Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.gb_list.ResumeLayout(false);
@@ -305,6 +305,5 @@
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ContextMenuStrip cm_id;
         private System.Windows.Forms.ToolStripMenuItem 계정불러오기ToolStripMenuItem;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
