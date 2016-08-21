@@ -180,14 +180,27 @@ namespace PopAll_Article_Writer_Server
             //    //EndPoint remoteEP = new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040);
             //    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
             //}
-            for (; i < int.Parse(tb_stand.Text); i++)
+            int Max = int.Parse(tb_stand.Text);
+            for (; i <= lv_list.Items.Count; i += Max)
             {
-                if (lv_list.Items[i].SubItems[2].Text == "등록대기")
+                bool ready = true;
+                for (int j = 0; j < Max; j++)
                 {
+                    if (lv_list.Items[j].SubItems[2].Text != "등록대기")
+                    {
+                        Console.WriteLine("로그인 진행중");
+                        ready = false;
+                        i -= Max;
+                        break;
+                    }
 
+                    if (ready)
+                    {
+                        ready = true;
+                        udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                        Thread.Sleep(int.Parse(tb_timer.Text) * 1000);
+                    }
                 }
-                udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
-                Thread.Sleep(int.Parse(tb_timer.Text) * 1000);
             }
         }
 
