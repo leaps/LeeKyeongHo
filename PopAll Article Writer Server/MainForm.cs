@@ -83,6 +83,12 @@ namespace PopAll_Article_Writer_Server
                         Console.WriteLine("제거");
                         lv_list.Items.Remove(item);
                     }
+
+                    //else if (item.SubItems[2].Text.Equals("작업대기중"))
+                    //{
+                    //    Console.WriteLine("제거");
+                    //    lv_list.Items.Remove(item);
+                    //}
                 }
                 Thread.Sleep(10000);
             }
@@ -95,13 +101,14 @@ namespace PopAll_Article_Writer_Server
             lvi_item.SubItems.Add(rcv.Split('|')[0]);
             lvi_item.SubItems.Add(rcv.Split('|')[1]);
             lv_log.Items.Add(lvi_item);
-            
+            lv_log.EnsureVisible(lv.Items.Count - 1);
+
             bool Modify = false;
             foreach (ListViewItem item in lv.Items)
             {
                 if (item.SubItems[0].Text.Equals(remoteIP))
                 {
-                    //if (rcv.Contains("서버접속"))
+                    //if (rcv.Contains("연결시도"))
                     //{
                     //    item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     //    Modify = true;
@@ -199,7 +206,7 @@ namespace PopAll_Article_Writer_Server
                     if (item.SubItems[2].Text != "등록대기")
                     {
                         Console.WriteLine("등록대기 체크");
-                        while (item.SubItems[2].Text.Equals("등록대기"))
+                        while (!item.SubItems[2].Text.Equals("등록대기"))
                         {
                             Thread.Sleep(500);
                             break;
@@ -215,6 +222,47 @@ namespace PopAll_Article_Writer_Server
                     }
                     udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
                     Console.WriteLine("작성시작");
+                }
+                LogAdd("End Of Work");
+            }
+            catch { }
+        }
+
+        void Works()
+        {
+            CheckForIllegalCrossThreadCalls = false;
+            try
+            {
+                int Delay = int.Parse(tb_timer.Text) * 1000;
+
+                foreach (ListViewItem item in lv_list.Items)
+                {
+                    while (true)
+                    {
+                        if (item.SubItems[2].Text.Equals("등록대기"))
+                        {
+                            udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                            item.SubItems[2].Text = "작성시작";
+                            Console.WriteLine("작성시작");
+                            break;
+                        }
+                        Thread.Sleep(1000);
+                    }
+                    Thread.Sleep(Delay);
+                }
+                LogAdd("End Of Work");
+            }
+            catch { }
+        }
+
+        void Workss()
+        {
+            CheckForIllegalCrossThreadCalls = false;
+            try
+            {
+                foreach (ListViewItem item in lv_list.Items)
+                {
+                    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040)); ;
                 }
                 LogAdd("End Of Work");
             }
@@ -238,9 +286,9 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_start_Click(object sender, EventArgs e)
         {
-            SetArticle(tb_subject.Text, tb_body.Text);
-            SetID();
-            th = new Thread(new ThreadStart(Work));
+            //SetArticle(tb_subject.Text, tb_body.Text);
+            //SetID();
+            th = new Thread(new ThreadStart(Works));
             th.Start();
             LogAdd("Work Start");
             bt_start.Enabled = false;
@@ -281,6 +329,17 @@ namespace PopAll_Article_Writer_Server
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             System.Diagnostics.Process.GetCurrentProcess().Kill();
+        }
+
+        private void 제거toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (lv_list.SelectedItems.Count > 0)
+                lv_list.SelectedItems[0].Remove();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Thread(Workss).Start();
         }
     }
 }

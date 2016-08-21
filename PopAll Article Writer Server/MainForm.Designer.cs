@@ -1,4 +1,6 @@
-﻿namespace PopAll_Article_Writer_Server
+﻿using System;
+
+namespace PopAll_Article_Writer_Server
 {
     partial class MainForm
     {
@@ -53,8 +55,12 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cm_id = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.계정불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_list = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.제거toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.gb_list.SuspendLayout();
             this.cm_id.SuspendLayout();
+            this.cm_list.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_list
@@ -77,6 +83,8 @@
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
+            this.lv_list.ContextMenuStrip = this.cm_list;
+            this.lv_list.FullRowSelect = true;
             this.lv_list.GridLines = true;
             this.lv_list.Location = new System.Drawing.Point(6, 24);
             this.lv_list.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -173,6 +181,7 @@
             this.columnHeader7,
             this.columnHeader8,
             this.columnHeader9});
+            this.lv_log.FullRowSelect = true;
             this.lv_log.GridLines = true;
             this.lv_log.Location = new System.Drawing.Point(409, 326);
             this.lv_log.Name = "lv_log";
@@ -221,6 +230,7 @@
             this.lv_id.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader10});
             this.lv_id.ContextMenuStrip = this.cm_id;
+            this.lv_id.FullRowSelect = true;
             this.lv_id.Location = new System.Drawing.Point(247, 326);
             this.lv_id.Name = "lv_id";
             this.lv_id.Size = new System.Drawing.Size(156, 177);
@@ -248,12 +258,38 @@
             this.계정불러오기ToolStripMenuItem.Text = "계정 불러오기";
             this.계정불러오기ToolStripMenuItem.Click += new System.EventHandler(this.계정불러오기ToolStripMenuItem_Click);
             // 
+            // cm_list
+            // 
+            this.cm_list.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.제거toolStripMenuItem1});
+            this.cm_list.Name = "cm_id";
+            this.cm_list.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cm_list.Size = new System.Drawing.Size(99, 26);
+            // 
+            // 제거toolStripMenuItem1
+            // 
+            this.제거toolStripMenuItem1.Name = "제거toolStripMenuItem1";
+            this.제거toolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
+            this.제거toolStripMenuItem1.Text = "제거";
+            this.제거toolStripMenuItem1.Click += new System.EventHandler(this.제거toolStripMenuItem1_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(38, 365);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(927, 515);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lv_id);
             this.Controls.Add(this.tb_body);
             this.Controls.Add(this.tb_subject);
@@ -274,6 +310,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.gb_list.ResumeLayout(false);
             this.cm_id.ResumeLayout(false);
+            this.cm_list.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,5 +342,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ContextMenuStrip cm_id;
         private System.Windows.Forms.ToolStripMenuItem 계정불러오기ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip cm_list;
+        private System.Windows.Forms.ToolStripMenuItem 제거toolStripMenuItem1;
+        private System.Windows.Forms.Button button1;
     }
 }

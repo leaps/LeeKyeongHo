@@ -93,7 +93,7 @@ namespace PopAll_Article_Writer_Client
                                 string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
                                 if (!rcv.Equals("작성시작"))
                                     continue;
-                                while (ip_cnt.Equals(1))
+                                while (!ip_cnt.Equals(1))
                                 {
                                     Console.WriteLine(Articletxt);
                                     _subject = Articletxt.Split('/')[0];
@@ -286,6 +286,7 @@ namespace PopAll_Article_Writer_Client
 
         void ProcessState()
         {
+            udpSocket.SendTo(Encoding.UTF8.GetBytes("서버접속"), remoteEP);
             for (;;)
             {
                 Time = string.Format("{0:yyyyMMdd}", DateTime.Now);
@@ -296,7 +297,7 @@ namespace PopAll_Article_Writer_Client
                     if (WorkState)
                     {
                         //이미작업함
-                        udpSocket.SendTo(Encoding.UTF8.GetBytes("서버접속"), remoteEP);
+                        udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), remoteEP);
                         continue;
                     }
                     else
@@ -311,7 +312,7 @@ namespace PopAll_Article_Writer_Client
                 else
                 {
                     //날짜지남 ON/OFF
-                    udpSocket.SendTo(Encoding.UTF8.GetBytes("서버접속"), remoteEP);
+                    udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), remoteEP);
                     WorkState = false;
                 }
             }
