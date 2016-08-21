@@ -12,6 +12,9 @@ namespace PopAll_Article_Writer_Server
         public static string ArticletxtDirec = Convert.ToBase64String(Encoding.Default.GetBytes("html/Article.txt")); //hdd/RequestUsers.txt
         public static string IDtxtDirec = Convert.ToBase64String(Encoding.Default.GetBytes("html/ID.txt")); //hdd/OkUsers.txt
 
+
+        //public static string ProcessOnOff = "host=" + hostIP + "&user=" + hostID + "&pass=" + hostPW + "&cmd=put&target=f1_&content=";
+
         public static string ArticleSendValue = "host=" + hostIP + "&user=" + hostID + "&pass=" + hostPW + "&cmd=put&target=f1_" + ArticletxtDirec + "&content=";
         //public const string OkViewValue = "host=" + hostIP + "&user=" + hostID + "&pass=" + hostPW + "&cmd=file&target=f1_" + oktxtDirec;
         public static string IDSendValue = "host=" + hostIP + "&user=" + hostID + "&pass=" + hostPW + "&cmd=put&target=f1_" + IDtxtDirec + "&content=";

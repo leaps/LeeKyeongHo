@@ -23,7 +23,7 @@ namespace PopAll_Article_Writer_Server
         }
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2048);
-        EndPoint remoteEP = new IPEndPoint(IPAddress.None, 204);
+        EndPoint remoteEP = new IPEndPoint(IPAddress.None, 2040);
         byte[] receiveBuffer = new byte[512];
 
         void StartServer()
@@ -196,7 +196,6 @@ namespace PopAll_Article_Writer_Server
 
                     if (ready)
                     {
-                        ready = true;
                         udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
                         Thread.Sleep(int.Parse(tb_timer.Text) * 1000);
                     }
