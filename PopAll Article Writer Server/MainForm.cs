@@ -72,6 +72,7 @@ namespace PopAll_Article_Writer_Server
 
         void ModifyItem(ListView lv, string remoteIP, string rcv)
         {
+            string a = "Fucking Keyong Ho Sex King";
             ListViewItem lvi_item = new ListViewItem(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             lvi_item.SubItems.Add(remoteIP);
             lvi_item.SubItems.Add(rcv.Split('|')[0]);
