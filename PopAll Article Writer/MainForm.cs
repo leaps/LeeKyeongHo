@@ -39,8 +39,8 @@ namespace PopAll_Article_Writer_Client
 
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2040);
-        //EndPoint remoteEP = new IPEndPoint(IPAddress.Loopback, 2048);
-        EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("papallwriter.oa.to")[0], 2048);
+        //EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
+        EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popallwriter.oa.to")[0], 2048);
 
         void SendPacket(string ID, string Reason)
         {
