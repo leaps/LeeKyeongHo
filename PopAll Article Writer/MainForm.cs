@@ -39,8 +39,8 @@ namespace PopAll_Article_Writer_Client
 
         Socket udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2040);
-        //EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
-        EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popallwriter.oa.to")[0], 2048);
+        EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
+        //EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popallwriter.oa.to")[0], 2048);
 
         void SendPacket(string ID, string Reason)
         {
@@ -93,17 +93,20 @@ namespace PopAll_Article_Writer_Client
                                 string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
                                 if (!rcv.Equals("작성시작"))
                                     continue;
-                                Console.WriteLine(Articletxt);
-                                _subject = Articletxt.Split('/')[0];
-                                _body = Articletxt.Split('/')[1].Replace("<br>", "\n");
-                                int num = PopWrite(_subject, _body);
-                                if (num == 1)
-                                    success++;
-                                else if (num == 2)
-                                    GetAccount();
-                                else
-                                    fail++;
-                                break;
+                                while (ip_cnt.Equals(1))
+                                {
+                                    Console.WriteLine(Articletxt);
+                                    _subject = Articletxt.Split('/')[0];
+                                    _body = Articletxt.Split('/')[1].Replace("<br>", "\n");
+                                    int num = PopWrite(_subject, _body);
+                                    if (num == 1)
+                                        success++;
+                                    else if (num == 2)
+                                        GetAccount();
+                                    else
+                                        fail++;
+                                    break;
+                                }
                             }
                         }
                         else
