@@ -72,6 +72,12 @@ namespace PopAll_Article_Writer_Server
 
         void ModifyItem(ListView lv, string remoteIP, string rcv)
         {
+            ListViewItem lvi_item = new ListViewItem(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            lvi_item.SubItems.Add(remoteIP);
+            lvi_item.SubItems.Add(rcv.Split('|')[0]);
+            lvi_item.SubItems.Add(rcv.Split('|')[1]);
+            lv_log.Items.Add(lvi_item);
+            
             bool Modify = false;
             foreach (ListViewItem item in lv.Items)
             {
@@ -141,7 +147,7 @@ namespace PopAll_Article_Writer_Server
             string Articletxt = string.Format("{0}/{1}", subject, body);
             try
             {
-                http.Open("GET", Class.variables.hostURI + Class.variables.ArticleSendValue + Articletxt);
+                http.Open("GET", variables.hostURI + variables.ArticleSendValue + Articletxt);
                 http.Send();
             }
             catch { }
@@ -154,7 +160,7 @@ namespace PopAll_Article_Writer_Server
                 WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
                 foreach (ListViewItem item in lv_id.Items)
                 {
-                    http.Open("GET", Class.variables.hostURI + Class.variables.IDSendValue + item);
+                    http.Open("GET", variables.hostURI + variables.IDSendValue + item);
                     http.Send();
                 }
             }
