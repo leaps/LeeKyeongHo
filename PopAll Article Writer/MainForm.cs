@@ -49,7 +49,7 @@ namespace PopAll_Article_Writer_Client
 
         void Work()
         {
-            udpSocket.SendTo(Encoding.UTF8.GetBytes("서버접속"), remoteEP);
+            SendPacket("None", "서버접속");
             if (Account.Equals("False"))
             {
                 Console.WriteLine("계정 불러오기 실패");
@@ -77,17 +77,17 @@ namespace PopAll_Article_Writer_Client
                             write.Abort();
                         }
 
-                        ID = Account.Split('/')[0];
-                        PW = Account.Split('/')[1];
+                        ID = Account.Split('|')[0];
+                        PW = Account.Split('|')[1];
 
                         //0. 실패 1. 성공   2. 글쓰기 불가능
                         if (PopLogin(ID, PW))
                         {
                             LogAdd(Account, " - 로그인 성공 / 글 등록대기 60초");
-                            SendPacket(ID, "등록대기");
-                            for (;;)
+                            while (true)
                             {
                                 Console.WriteLine("글작성 패킷 대기");
+                                SendPacket(ID, "등록대기");
                                 byte[] receiveBuffer = new byte[512];
                                 int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
                                 string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
@@ -105,7 +105,6 @@ namespace PopAll_Article_Writer_Client
                                         GetAccount();
                                     else
                                         fail++;
-                                    break;
                                 }
                             }
                         }
@@ -281,12 +280,13 @@ namespace PopAll_Article_Writer_Client
         {
             WebClient WC = new WebClient();
             WC.Headers.Add("Cookie", Cookie);
-            WC.DownloadFile(URL, Application.StartupPath + @"\pic.png");
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            WC.DownloadFile(URL, path + @"\pic.png");
         }
 
         void ProcessState()
         {
-            udpSocket.SendTo(Encoding.UTF8.GetBytes("서버접속"), remoteEP);
+            SendPacket("None", "서버접속");
             for (;;)
             {
                 Time = string.Format("{0:yyyyMMdd}", DateTime.Now);
@@ -297,7 +297,7 @@ namespace PopAll_Article_Writer_Client
                     if (WorkState)
                     {
                         //이미작업함
-                        udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), remoteEP);
+                        SendPacket("None", "서버접속");
                         continue;
                     }
                     else
@@ -312,7 +312,7 @@ namespace PopAll_Article_Writer_Client
                 else
                 {
                     //날짜지남 ON/OFF
-                    udpSocket.SendTo(Encoding.UTF8.GetBytes("연결시도"), remoteEP);
+                    SendPacket("None", "서버접속");
                     WorkState = false;
                 }
             }
@@ -324,6 +324,8 @@ namespace PopAll_Article_Writer_Client
             //if (key.GetValue("PopAll") == null)
             //    key.SetValue("PopAll", Application.ExecutablePath.ToString());
             new Thread(Kill).Start();
+            if (System.Diagnostics.Process.GetProcessesByName("Article").Length > 1)
+                System.Diagnostics.Process.GetProcessesByName("Article")[1].Kill();
 
             if (new WebClient().DownloadString("http://eogh1439.dothome.co.kr/AddIP.php").Contains("Done."))
             {

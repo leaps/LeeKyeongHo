@@ -28,6 +28,19 @@ namespace PopAll_Article_Writer_Server
         Thread th;
         int i = 0;
 
+        string GetPCState(ListView lv)
+        {
+            int SB = 0, R = 0;
+            foreach (ListViewItem item in lv_list.Items)
+            {
+                if (item.SubItems[2].Text.Equals("등록대기"))
+                    SB++;
+                else
+                    R++;
+            }
+            return string.Format("PC : {0}, 등록대기 : {1}, 준비중 : {2}", lv.Items.Count, SB, R);
+        }
+
         void StartServer()
         {
             udpSocket.Bind(localEP);
@@ -36,30 +49,37 @@ namespace PopAll_Article_Writer_Server
             {
                 try
                 {
+                    gb_list.Text = GetPCState(lv_list);
                     int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
                     string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
                     string remoteIP = ((IPEndPoint)remoteEP).Address.ToString();
 
                     Console.Write("IP : " + remoteIP);
                     Console.Write(DateTime.Now.ToShortTimeString() + " / 메세지 : ");
-                    Console.WriteLine(Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize));
+                    //Console.WriteLine(Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize));
+                    Console.WriteLine(rcv);
 
-                    ListViewItem lvis = lv_list.FindItemWithText(remoteIP);
-                    if (lvis != null)
-                    {
-                        lvis.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    }
-                    else
-                    {
-                        ListViewItem lvi = new ListViewItem(remoteIP);
-                        lvi.SubItems.Add("None");
-                        lvi.SubItems.Add("작업대기중");
-                        lvi.SubItems.Add("");
-                        lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                        lv_list.Items.Add(lvi);
-                    }
-
-                    ModifyItem(lv_list, remoteIP, rcv);
+                    //if (rcv.Contains("서버연결"))
+                    //{
+                    //    foreach (ListViewItem item in lv_list.Items)
+                    //    {
+                    //        if (item.SubItems[0].Text.Equals(remoteIP))
+                    //        {
+                    //            item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    //        }
+                    //        else
+                    //        {
+                    //            ListViewItem lvi = new ListViewItem(remoteIP);
+                    //            lvi.SubItems.Add("None");
+                    //            lvi.SubItems.Add("작업대기중");
+                    //            lvi.SubItems.Add("");
+                    //            lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    //            lv_list.Items.Add(lvi);
+                    //        }
+                    //    }
+                    //}
+                    //else
+                        ModifyItem(lv_list, remoteIP, rcv);
 
                     //udpSocket.SendTo(receiveBuffer, receivedSize, SocketFlags.None, remoteEP);
 
@@ -94,76 +114,66 @@ namespace PopAll_Article_Writer_Server
             }
         }
 
-        void ModifyItem(ListView lv, string remoteIP, string rcv)
+        void ModifyItem(ListView lv, string remoteIP, string rcvs)
         {
-            ListViewItem lvi_item = new ListViewItem(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            lvi_item.SubItems.Add(remoteIP);
-            lvi_item.SubItems.Add(rcv.Split('|')[0]);
-            lvi_item.SubItems.Add(rcv.Split('|')[1]);
-            lv_log.Items.Add(lvi_item);
-            lv_log.EnsureVisible(lv.Items.Count - 1);
+            ListViewItem item = lv.FindItemWithText(remoteIP);
 
-            bool Modify = false;
-            foreach (ListViewItem item in lv.Items)
+            if (item != null)
             {
-                if (item.SubItems[0].Text.Equals(remoteIP))
+                if (rcvs.Contains("서버접속"))
                 {
-                    //if (rcv.Contains("연결시도"))
-                    //{
-                    //    item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    //    Modify = true;
-                    //    break;
-                    //}
-                    if (rcv.Contains("등록성공"))
-                    {
-                        item.SubItems[1].Text = rcv.Split('|')[0];
-                        item.SubItems[2].Text = rcv.Split('|')[1];
-                        item.SubItems[3].Text = "Article " + rcv.Split('|')[2] + ", IP " + rcv.Split('|')[3];
-                        item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        Modify = true;
-                        break;
-                    }
-                    else
-                    {
-                        item.SubItems[1].Text = rcv.Split('|')[0];
-                        item.SubItems[2].Text = rcv.Split('|')[1];
-                        item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        Modify = true;
-                        break;
-                    }
+                    item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    return;
                 }
-            }
-            if (!Modify)
-            {
-                Modify = false;
-                //if (rcv.Contains("서버접속"))
-                //{
-                //    ListViewItem lvi = new ListViewItem(remoteIP);
-                //    lvi.SubItems.Add("None");
-                //    lvi.SubItems.Add("작업대기중");
-                //    lvi.SubItems.Add("");
-                //    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                //    lv_list.Items.Add(lvi);
-                //}
-                if (rcv.Contains("등록성공"))
+                else if (rcvs.Contains("등록성공"))
                 {
-                    ListViewItem lvi = new ListViewItem(remoteIP);
-                    lvi.SubItems.Add(rcv.Split('|')[0]);
-                    lvi.SubItems.Add(rcv.Split('|')[1]);
-                    lvi.SubItems.Add("Article " + rcv.Split('|')[2] + ", IP " + rcv.Split('|')[3]);
-                    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                    lv_list.Items.Add(lvi);
+                    item.SubItems[1].Text = rcvs.Split('|')[0];
+                    item.SubItems[2].Text = rcvs.Split('|')[1];
+                    item.SubItems[3].Text = "Article " + rcvs.Split('|')[2] + ", IP " + rcvs.Split('|')[3];
+                    item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 }
                 else
                 {
-                    ListViewItem lvi = new ListViewItem(remoteIP);
-                    lvi.SubItems.Add(rcv.Split('|')[0]);
-                    lvi.SubItems.Add(rcv.Split('|')[1]);
-                    lvi.SubItems.Add("");
-                    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                    lv_list.Items.Add(lvi);
+                    item.SubItems[1].Text = rcvs.Split('|')[0];
+                    item.SubItems[2].Text = rcvs.Split('|')[1];
+                    item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 }
             }
+
+            else
+            {
+                ListViewItem lvi = new ListViewItem(remoteIP);
+                lvi.SubItems.Add(rcvs.Split('|')[0]);
+                //if (rcvs.Contains("서버접속"))
+                //{
+                //    lvi.SubItems.Add("작업대기중");
+                //    lvi.SubItems.Add("");
+                //    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                //    lv.Items.Add(lvi);
+                //    return;
+                //}
+                //else if (rcvs.Contains("등록성공"))
+                if (rcvs.Contains("등록성공"))
+                {
+                    lvi.SubItems.Add(rcvs.Split('|')[1]);
+                    lvi.SubItems.Add("Article " + rcvs.Split('|')[2] + ", IP " + rcvs.Split('|')[3]);
+                    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    lv.Items.Add(lvi);
+                }
+                else
+                {
+                    lvi.SubItems.Add(rcvs.Split('|')[1]);
+                    lvi.SubItems.Add("");
+                    lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    lv.Items.Add(lvi);
+                }
+            }
+            ListViewItem lvi_item = new ListViewItem(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            lvi_item.SubItems.Add(remoteIP);
+            lvi_item.SubItems.Add(rcvs.Split('|')[0]);
+            lvi_item.SubItems.Add(rcvs.Split('|')[1]);
+            lv_log.Items.Add(lvi_item);
+            //lv_log.EnsureVisible(lv.Items.Count - 1);
         }
 
         void SetArticle(string subject, string body)
@@ -197,31 +207,27 @@ namespace PopAll_Article_Writer_Server
             CheckForIllegalCrossThreadCalls = false;
             try
             {
-                int i = 0;
                 int Max = int.Parse(tb_stand.Text);
                 int Delay = int.Parse(tb_timer.Text) * 1000;
+                int i = 0;
 
                 foreach (ListViewItem item in lv_list.Items)
                 {
-                    if (item.SubItems[2].Text != "등록대기")
+                    if (!item.SubItems[2].Text.Equals("등록대기"))
+                        continue;
+                    if (i <= Max)
                     {
-                        Console.WriteLine("등록대기 체크");
-                        while (!item.SubItems[2].Text.Equals("등록대기"))
-                        {
-                            Thread.Sleep(500);
-                            break;
-                        }
-                    }
-
-                    i++;
-                    if (i.Equals(Max))
-                    {
-                        i = 0;
-                        Console.WriteLine("다음 목록");
+                        udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                        item.SubItems[2].Text = "작성시작";
+                        Console.WriteLine("작성시작");
                         Thread.Sleep(Delay);
                     }
-                    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
-                    Console.WriteLine("작성시작");
+                    else
+                    {
+                        i = 0;
+                        Thread.Sleep(Delay);
+                    }
+                    i++;
                 }
                 LogAdd("End Of Work");
             }
@@ -231,24 +237,14 @@ namespace PopAll_Article_Writer_Server
         void Works()
         {
             CheckForIllegalCrossThreadCalls = false;
+            //if ((DateTime.Parse(item.SubItems[4].Text).AddMinutes(1)).CompareTo(DateTime.Now) < 0)
             try
             {
                 int Delay = int.Parse(tb_timer.Text) * 1000;
-
+                int i = 0;
                 foreach (ListViewItem item in lv_list.Items)
                 {
-                    while (true)
-                    {
-                        if (item.SubItems[2].Text.Equals("등록대기"))
-                        {
-                            udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
-                            item.SubItems[2].Text = "작성시작";
-                            Console.WriteLine("작성시작");
-                            break;
-                        }
-                        Thread.Sleep(1000);
-                    }
-                    Thread.Sleep(Delay);
+                    item.SubItems[5].Text
                 }
                 LogAdd("End Of Work");
             }
@@ -262,7 +258,8 @@ namespace PopAll_Article_Writer_Server
             {
                 foreach (ListViewItem item in lv_list.Items)
                 {
-                    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040)); ;
+                    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
+                    item.SubItems[2].Text = "작성시작";
                 }
                 LogAdd("End Of Work");
             }
@@ -288,7 +285,7 @@ namespace PopAll_Article_Writer_Server
         {
             //SetArticle(tb_subject.Text, tb_body.Text);
             //SetID();
-            th = new Thread(new ThreadStart(Works));
+            th = new Thread(new ThreadStart(Work));
             th.Start();
             LogAdd("Work Start");
             bt_start.Enabled = false;
@@ -340,6 +337,11 @@ namespace PopAll_Article_Writer_Server
         private void button1_Click(object sender, EventArgs e)
         {
             new Thread(Workss).Start();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SetArticle(tb_subject.Text, tb_body.Text);
         }
     }
 }

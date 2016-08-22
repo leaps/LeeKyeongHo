@@ -58,6 +58,8 @@ namespace PopAll_Article_Writer_Server
             this.cm_list = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.제거toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gb_list.SuspendLayout();
             this.cm_id.SuspendLayout();
             this.cm_list.SuspendLayout();
@@ -82,7 +84,8 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader11});
             this.lv_list.ContextMenuStrip = this.cm_list;
             this.lv_list.FullRowSelect = true;
             this.lv_list.GridLines = true;
@@ -275,7 +278,7 @@ namespace PopAll_Article_Writer_Server
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(38, 365);
+            this.button1.Location = new System.Drawing.Point(12, 386);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 10;
@@ -283,12 +286,23 @@ namespace PopAll_Article_Writer_Server
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(12, 325);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(229, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(927, 515);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lv_id);
             this.Controls.Add(this.tb_body);
@@ -345,5 +359,7 @@ namespace PopAll_Article_Writer_Server
         private System.Windows.Forms.ContextMenuStrip cm_list;
         private System.Windows.Forms.ToolStripMenuItem 제거toolStripMenuItem1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
     }
 }
