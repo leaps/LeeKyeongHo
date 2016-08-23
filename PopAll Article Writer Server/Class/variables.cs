@@ -5,7 +5,7 @@ namespace PopAll_Article_Writer_Server
 {
     class variables
     {
-        public const string hostIP = "112.175.184.61";
+        public const string hostIP = "112.175.184.60";
         public const string hostID = "eogh1439";
         public const string hostPW = "eogh0508";
         public const string hostURI = "http://eogh1439.dothome.co.kr/webftp/php/connector.php?";
