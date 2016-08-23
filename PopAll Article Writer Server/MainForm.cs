@@ -244,7 +244,7 @@ namespace PopAll_Article_Writer_Server
                 int i = 0;
                 foreach (ListViewItem item in lv_list.Items)
                 {
-                    item.SubItems[5].Text
+                    item.SubItems[5].Text = "개씨발 경호";
                 }
                 LogAdd("End Of Work");
             }
