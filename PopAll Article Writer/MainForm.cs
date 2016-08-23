@@ -77,8 +77,8 @@ namespace PopAll_Article_Writer_Client
                             write.Abort();
                         }
 
-                        ID = Account.Split('|')[0];
-                        PW = Account.Split('|')[1];
+                        ID = Account.Split('/')[0];
+                        PW = Account.Split('/')[1];
 
                         //0. 실패 1. 성공   2. 글쓰기 불가능
                         if (PopLogin(ID, PW))
