@@ -94,6 +94,7 @@ namespace PopAll_Article_Writer_Server
         void ClientState()
         {
             Console.WriteLine("필터링");
+            string[] usedip = new WebClient().DownloadString(string.Format("http://limejellys.dothome.co.kr/UsedIP{0:yyyyMMdd}", DateTime.Now)).Replace("<br>", string.Empty).Split('\n');
             while (true)
             {
                 foreach (ListViewItem item in lv_list.Items)
@@ -103,7 +104,14 @@ namespace PopAll_Article_Writer_Server
                         Console.WriteLine("제거");
                         lv_list.Items.Remove(item);
                     }
-
+                    foreach (string arr in usedip)
+                    {
+                        if (arr.Equals(item.SubItems[0].Text))
+                        {
+                            item.Remove();
+                            LogAdd(string.Format("Remove IP : {0}", item.SubItems[0].Text));
+                        }
+                    }
                     //else if (item.SubItems[2].Text.Equals("작업대기중"))
                     //{
                     //    Console.WriteLine("제거");
