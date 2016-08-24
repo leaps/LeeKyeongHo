@@ -46,6 +46,79 @@ namespace PopAll_Article_Writer_Client
             udpSocket.SendTo(Encoding.UTF8.GetBytes(ID + "|" + Reason), remoteEP);
         }
 
+        //void Work()
+        //{
+        //    SendPacket("None", "서버접속");
+        //    if (Account.Equals("False"))
+        //    {
+        //        Console.WriteLine("계정 불러오기 실패");
+        //        SendPacket("None", "계정 불러오기 실패");
+        //        GetAccount();
+        //    }
+        //    else
+        //    {
+        //        WebClient wc = new WebClient();
+        //        wc.Encoding = Encoding.UTF8;
+        //        string Articletxt = wc.DownloadString("http://eogh1439.dothome.co.kr/Article.txt");
+        //        while (write.IsAlive)
+        //        {
+        //            try
+        //            {
+        //                if (LoginFail >= 1)
+        //                {
+        //                    GetAccount();
+        //                    LoginFail = 0;
+        //                }
+        //                if (ip_cnt == 1)
+        //                {
+        //                    LogAdd(Account, "작업종료 성공 : " + success + " / 실패 : " + fail);
+        //                    SendPacket("None", "작업종료");
+        //                    wc.DownloadString("http://limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
+        //                    write.Abort();
+        //                }
+        //                ID = Account.Split('/')[0];
+        //                PW = Account.Split('/')[1];
+
+        //                //0. 실패 1. 성공   2. 글쓰기 불가능
+        //                if (PopLogin(ID, PW))
+        //                {
+        //                    LogAdd(Account, " - 로그인 성공 / 글 등록대기 60초");
+        //                    while (!ip_cnt.Equals(1))
+        //                    {
+        //                        Console.WriteLine("글작성 패킷 대기");
+        //                        SendPacket(ID, "등록대기");
+        //                        byte[] receiveBuffer = new byte[512];
+        //                        int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+        //                        string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+        //                        if (!rcv.Equals("작성시작"))
+        //                            continue;
+        //                        while (!write_cnt.Equals(1))
+        //                        {
+        //                            Console.WriteLine(Articletxt);
+        //                            _subject = Articletxt.Split('/')[0];
+        //                            _body = Articletxt.Split('/')[1].Replace("<br>", "\n");
+        //                            int num = PopWrite(_subject, _body);
+        //                            if (num == 1)
+        //                                success++;
+        //                            else if (num == 2)
+        //                                GetAccount();
+        //                            else
+        //                                fail++;
+        //                        }
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    LoginFail++;
+        //                    LogAdd(Account, "로그인 실패 : " + LoginFail.ToString());
+        //                    SendPacket(ID, "로그인 실패");
+        //                    Thread.Sleep(61000);
+        //                }
+        //            }
+        //            catch { }
+        //        }
+        //    }
+        //}
         void Work()
         {
             SendPacket("None", "서버접속");
@@ -75,12 +148,13 @@ namespace PopAll_Article_Writer_Client
                             SendPacket("None", "작업종료");
                             write.Abort();
                         }
-                        
+
                         ID = Account.Split('/')[0];
                         PW = Account.Split('/')[1];
 
                         //0. 실패 1. 성공   2. 글쓰기 불가능
-                        if (PopLogin(ID, PW))
+                        bool loginstate = PopLogin(ID, PW);
+                        if (loginstate)
                         {
                             LogAdd(Account, " - 로그인 성공 / 글 등록대기 60초");
                             while (!write_cnt.Equals(1))
@@ -96,17 +170,30 @@ namespace PopAll_Article_Writer_Client
                                     wc.DownloadString("limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
                                 while (!ip_cnt.Equals(1))
                                 {
+                                    ID = Account.Split('/')[0];
+                                    PW = Account.Split('/')[1];
                                     Console.WriteLine(Articletxt);
                                     _subject = Articletxt.Split('/')[0];
                                     _body = Articletxt.Split('/')[1].Replace("<br>", "\n");
-                                    int num = PopWrite(_subject, _body);
-                                    if (num == 1)
-                                        success++;
-                                    else if (num == 2)
-                                        GetAccount();
-                                    else
-                                        fail++;
+                                    if (!loginstate)
+                                    {
+                                        loginstate = PopLogin(ID, PW);
+                                        if (loginstate)
+                                        {
+                                            int num = PopWrite(_subject, _body);
+                                            if (num == 1)
+                                                success++;
+                                            else if (num == 2)
+                                            {
+                                                GetAccount();
+                                                loginstate = false;
+                                            }
+                                            else
+                                                fail++;
+                                        }
+                                    }
                                 }
+                                break;
                             }
                         }
                         else
@@ -121,7 +208,6 @@ namespace PopAll_Article_Writer_Client
                 }
             }
         }
-
         int PopWrite(string subject, string body)
         {
             try
