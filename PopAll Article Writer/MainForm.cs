@@ -178,19 +178,19 @@ namespace PopAll_Article_Writer_Client
                                     if (!loginstate)
                                     {
                                         loginstate = PopLogin(ID, PW);
-                                        if (loginstate)
+                                    }
+                                    if (loginstate)
+                                    {
+                                        int num = PopWrite(_subject, _body);
+                                        if (num == 1)
+                                            success++;
+                                        else if (num == 2)
                                         {
-                                            int num = PopWrite(_subject, _body);
-                                            if (num == 1)
-                                                success++;
-                                            else if (num == 2)
-                                            {
-                                                GetAccount();
-                                                loginstate = false;
-                                            }
-                                            else
-                                                fail++;
+                                            GetAccount();
+                                            loginstate = false;
                                         }
+                                        else
+                                            fail++;
                                     }
                                 }
                                 break;
