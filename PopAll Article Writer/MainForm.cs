@@ -153,11 +153,10 @@ namespace PopAll_Article_Writer_Client
                         PW = Account.Split('/')[1];
 
                         //0. 실패 1. 성공   2. 글쓰기 불가능
-                        bool loginstate = PopLogin(ID, PW);
-                        if (loginstate)
+                        if (PopLogin(ID, PW))
                         {
                             LogAdd(Account, " - 로그인 성공 / 글 등록대기 60초");
-                            while (!write_cnt.Equals(1))
+                            while (true)
                             {
                                 Console.WriteLine("글작성 패킷 대기");
                                 SendPacket(ID, "등록대기");
@@ -175,11 +174,12 @@ namespace PopAll_Article_Writer_Client
                                     Console.WriteLine(Articletxt);
                                     _subject = Articletxt.Split('/')[0];
                                     _body = Articletxt.Split('/')[1].Replace("<br>", "\n");
-                                    if (!loginstate)
+                                    if (LoginFail >= 1)
                                     {
-                                        loginstate = PopLogin(ID, PW);
+                                        GetAccount();
+                                        LoginFail = 0;
                                     }
-                                    if (loginstate)
+                                    if (PopLogin(ID, PW))
                                     {
                                         int num = PopWrite(_subject, _body);
                                         if (num == 1)
@@ -187,10 +187,16 @@ namespace PopAll_Article_Writer_Client
                                         else if (num == 0 || num == 2)
                                         {
                                             GetAccount();
-                                            loginstate = false;
                                         }
                                         else
                                             fail++;
+                                    }
+                                    else
+                                    {
+                                        LoginFail++;
+                                        LogAdd(Account, "로그인 실패 : " + LoginFail.ToString());
+                                        SendPacket(ID, "로그인 실패");
+                                        Thread.Sleep(61000);
                                     }
                                 }
                                 break;
