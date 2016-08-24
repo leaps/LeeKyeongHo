@@ -184,7 +184,7 @@ namespace PopAll_Article_Writer_Client
                                         int num = PopWrite(_subject, _body);
                                         if (num == 1)
                                             success++;
-                                        else if (num == 2)
+                                        else if (num == 0 || num == 2)
                                         {
                                             GetAccount();
                                             loginstate = false;
@@ -275,13 +275,13 @@ namespace PopAll_Article_Writer_Client
                     {
                         LogAdd(Account, "접근금지된 회원");
                         SendPacket(ID, "접근금지");
-                        return 2;
+                        return 0;
                     }
                     if (result.Contains("비정상적"))
                     {
                         LogAdd(Account, "비정상적 접근");
                         SendPacket(ID, "비정상 접근");
-                        return 2;
+                        return 0;
                     }
                 }
             }
