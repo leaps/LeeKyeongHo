@@ -242,23 +242,6 @@ namespace PopAll_Article_Writer_Server
             catch { }
         }
 
-        void Works()
-        {
-            CheckForIllegalCrossThreadCalls = false;
-            //if ((DateTime.Parse(item.SubItems[4].Text).AddMinutes(1)).CompareTo(DateTime.Now) < 0)
-            try
-            {
-                int Delay = int.Parse(tb_timer.Text) * 1000;
-                int i = 0;
-                foreach (ListViewItem item in lv_list.Items)
-                {
-                    item.SubItems[5].Text = "개씨발 경호";
-                }
-                LogAdd("End Of Work");
-            }
-            catch { }
-        }
-
         void Workss()
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -266,8 +249,11 @@ namespace PopAll_Article_Writer_Server
             {
                 foreach (ListViewItem item in lv_list.Items)
                 {
-                    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
-                    item.SubItems[2].Text = "작성시작";
+                    if (item.SubItems[2].Text.Equals("등록대기"))
+                    {
+                        udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
+                        item.SubItems[2].Text = "작성시작";
+                    }
                 }
                 LogAdd("End Of Work");
             }
