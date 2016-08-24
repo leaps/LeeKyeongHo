@@ -55,11 +55,9 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cm_id = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.계정불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cm_list = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.제거toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cm_list = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gb_list.SuspendLayout();
             this.cm_id.SuspendLayout();
             this.cm_list.SuspendLayout();
@@ -84,8 +82,7 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader11});
+            this.columnHeader5});
             this.lv_list.ContextMenuStrip = this.cm_list;
             this.lv_list.FullRowSelect = true;
             this.lv_list.GridLines = true;
@@ -261,31 +258,6 @@ namespace PopAll_Article_Writer_Server
             this.계정불러오기ToolStripMenuItem.Text = "계정 불러오기";
             this.계정불러오기ToolStripMenuItem.Click += new System.EventHandler(this.계정불러오기ToolStripMenuItem_Click);
             // 
-            // cm_list
-            // 
-            this.cm_list.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.제거toolStripMenuItem1});
-            this.cm_list.Name = "cm_id";
-            this.cm_list.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cm_list.Size = new System.Drawing.Size(99, 26);
-            // 
-            // 제거toolStripMenuItem1
-            // 
-            this.제거toolStripMenuItem1.Name = "제거toolStripMenuItem1";
-            this.제거toolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
-            this.제거toolStripMenuItem1.Text = "제거";
-            this.제거toolStripMenuItem1.Click += new System.EventHandler(this.제거toolStripMenuItem1_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 386);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(12, 325);
@@ -296,6 +268,21 @@ namespace PopAll_Article_Writer_Server
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // cm_list
+            // 
+            this.cm_list.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeToolStripMenuItem});
+            this.cm_list.Name = "cm_list";
+            this.cm_list.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cm_list.Size = new System.Drawing.Size(118, 26);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -303,7 +290,6 @@ namespace PopAll_Article_Writer_Server
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(927, 515);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.lv_id);
             this.Controls.Add(this.tb_body);
             this.Controls.Add(this.tb_subject);
@@ -356,10 +342,8 @@ namespace PopAll_Article_Writer_Server
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ContextMenuStrip cm_id;
         private System.Windows.Forms.ToolStripMenuItem 계정불러오기ToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip cm_list;
-        private System.Windows.Forms.ToolStripMenuItem 제거toolStripMenuItem1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ContextMenuStrip cm_list;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
     }
 }

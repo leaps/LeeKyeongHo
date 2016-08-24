@@ -322,12 +322,6 @@ namespace PopAll_Article_Writer_Server
             System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
-        private void 제거toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (lv_list.SelectedItems.Count > 0)
-                lv_list.SelectedItems[0].Remove();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             new Thread(Workss).Start();
@@ -336,6 +330,12 @@ namespace PopAll_Article_Writer_Server
         private void button2_Click(object sender, EventArgs e)
         {
             SetArticle(tb_subject.Text, tb_body.Text);
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lv_list.SelectedItems.Count > 0)
+                lv_list.SelectedItems[0].Remove();
         }
     }
 }

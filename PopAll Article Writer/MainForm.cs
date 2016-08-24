@@ -144,6 +144,7 @@ namespace PopAll_Article_Writer_Client
                         }
                         if (ip_cnt == 1)
                         {
+                            wc.DownloadString("http://limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
                             LogAdd(Account, "작업종료 성공 : " + success + " / 실패 : " + fail);
                             SendPacket("None", "작업종료");
                             write.Abort();
@@ -163,10 +164,10 @@ namespace PopAll_Article_Writer_Client
                                 byte[] receiveBuffer = new byte[512];
                                 int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
                                 string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                                if (rcv == null)
+                                    continue;
                                 if (!rcv.Equals("작성시작"))
                                     continue;
-                                if (ip_cnt.Equals(1))
-                                    wc.DownloadString("http://limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
                                 while (!ip_cnt.Equals(1))
                                 {
                                     ID = Account.Split('/')[0];
@@ -185,9 +186,7 @@ namespace PopAll_Article_Writer_Client
                                         if (num == 1)
                                             success++;
                                         else if (num == 0 || num == 2)
-                                        {
                                             GetAccount();
-                                        }
                                         else
                                             fail++;
                                     }
@@ -214,6 +213,7 @@ namespace PopAll_Article_Writer_Client
                 }
             }
         }
+
         int PopWrite(string subject, string body)
         {
             try
