@@ -167,7 +167,7 @@ namespace PopAll_Article_Writer_Client
                                 if (!rcv.Equals("작성시작"))
                                     continue;
                                 if (ip_cnt.Equals(1))
-                                    wc.DownloadString("limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
+                                    wc.DownloadString("http://limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
                                 while (!ip_cnt.Equals(1))
                                 {
                                     ID = Account.Split('/')[0];
