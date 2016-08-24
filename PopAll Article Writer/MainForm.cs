@@ -167,7 +167,7 @@ namespace PopAll_Article_Writer_Client
                                 if (!rcv.Equals("작성시작"))
                                     continue;
                                 if (ip_cnt.Equals(1))
-                                    wc.DownloadString("limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
+                                    wc.DownloadString("http://limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
                                 while (!ip_cnt.Equals(1))
                                 {
                                     ID = Account.Split('/')[0];
@@ -275,13 +275,13 @@ namespace PopAll_Article_Writer_Client
                     {
                         LogAdd(Account, "접근금지된 회원");
                         SendPacket(ID, "접근금지");
-                        return 0;
+                        return 2;
                     }
                     if (result.Contains("비정상적"))
                     {
                         LogAdd(Account, "비정상적 접근");
                         SendPacket(ID, "비정상 접근");
-                        return 0;
+                        return 2;
                     }
                 }
             }
