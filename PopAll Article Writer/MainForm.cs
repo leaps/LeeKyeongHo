@@ -81,7 +81,8 @@ namespace PopAll_Article_Writer_Client
                         PW = Account.Split('/')[1];
 
                         //0. 실패 1. 성공   2. 글쓰기 불가능
-                        if (PopLogin(ID, PW))
+                        bool loginstate = PopLogin(ID, PW);
+                        if (loginstate)
                         {
                             LogAdd(Account, " - 로그인 성공 / 글 등록대기 60초");
                             while (true)
@@ -97,17 +98,30 @@ namespace PopAll_Article_Writer_Client
                                     wc.DownloadString("limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
                                 while (!ip_cnt.Equals(1))
                                 {
+                                    ID = Account.Split('/')[0];
+                                    PW = Account.Split('/')[1];
                                     Console.WriteLine(Articletxt);
                                     _subject = Articletxt.Split('/')[0];
                                     _body = Articletxt.Split('/')[1].Replace("<br>", "\n");
-                                    int num = PopWrite(_subject, _body);
-                                    if (num == 1)
-                                        success++;
-                                    else if (num == 2)
-                                        GetAccount();
-                                    else
-                                        fail++;
+                                    if (!loginstate)
+                                    {
+                                        loginstate = PopLogin(ID, PW);
+                                        if (loginstate)
+                                        {
+                                            int num = PopWrite(_subject, _body);
+                                            if (num == 1)
+                                                success++;
+                                            else if (num == 2)
+                                            {
+                                                GetAccount();
+                                                loginstate = false;
+                                            }
+                                            else
+                                                fail++;
+                                        }
+                                    }
                                 }
+                                break;
                             }
                         }
                         else
