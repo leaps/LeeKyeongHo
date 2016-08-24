@@ -38,6 +38,8 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cm_list = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_stand = new System.Windows.Forms.Label();
             this.tb_stand = new System.Windows.Forms.TextBox();
             this.lb_timer = new System.Windows.Forms.Label();
@@ -55,12 +57,10 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cm_id = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.계정불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button2 = new System.Windows.Forms.Button();
-            this.cm_list = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bt_set = new System.Windows.Forms.Button();
             this.gb_list.SuspendLayout();
-            this.cm_id.SuspendLayout();
             this.cm_list.SuspendLayout();
+            this.cm_id.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_list
@@ -118,6 +118,21 @@ namespace PopAll_Article_Writer_Server
             // 
             this.columnHeader5.Text = "Time";
             this.columnHeader5.Width = 130;
+            // 
+            // cm_list
+            // 
+            this.cm_list.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeToolStripMenuItem});
+            this.cm_list.Name = "cm_list";
+            this.cm_list.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cm_list.Size = new System.Drawing.Size(118, 26);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // lb_stand
             // 
@@ -258,30 +273,15 @@ namespace PopAll_Article_Writer_Server
             this.계정불러오기ToolStripMenuItem.Text = "계정 불러오기";
             this.계정불러오기ToolStripMenuItem.Click += new System.EventHandler(this.계정불러오기ToolStripMenuItem_Click);
             // 
-            // button2
+            // bt_set
             // 
-            this.button2.Location = new System.Drawing.Point(12, 325);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(229, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // cm_list
-            // 
-            this.cm_list.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeToolStripMenuItem});
-            this.cm_list.Name = "cm_list";
-            this.cm_list.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cm_list.Size = new System.Drawing.Size(118, 26);
-            // 
-            // removeToolStripMenuItem
-            // 
-            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.removeToolStripMenuItem.Text = "Remove";
-            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            this.bt_set.Location = new System.Drawing.Point(12, 325);
+            this.bt_set.Name = "bt_set";
+            this.bt_set.Size = new System.Drawing.Size(229, 23);
+            this.bt_set.TabIndex = 11;
+            this.bt_set.Text = "Set";
+            this.bt_set.UseVisualStyleBackColor = true;
+            this.bt_set.Click += new System.EventHandler(this.bt_set_Click);
             // 
             // MainForm
             // 
@@ -289,7 +289,7 @@ namespace PopAll_Article_Writer_Server
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(927, 515);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.bt_set);
             this.Controls.Add(this.lv_id);
             this.Controls.Add(this.tb_body);
             this.Controls.Add(this.tb_subject);
@@ -309,8 +309,8 @@ namespace PopAll_Article_Writer_Server
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.gb_list.ResumeLayout(false);
-            this.cm_id.ResumeLayout(false);
             this.cm_list.ResumeLayout(false);
+            this.cm_id.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,7 +342,7 @@ namespace PopAll_Article_Writer_Server
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ContextMenuStrip cm_id;
         private System.Windows.Forms.ToolStripMenuItem 계정불러오기ToolStripMenuItem;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bt_set;
         private System.Windows.Forms.ContextMenuStrip cm_list;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
     }

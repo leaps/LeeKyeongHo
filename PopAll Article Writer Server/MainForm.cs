@@ -277,8 +277,6 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_start_Click(object sender, EventArgs e)
         {
-            //SetArticle(tb_subject.Text, tb_body.Text);
-            //SetID();
             th = new Thread(new ThreadStart(Work));
             th.Start();
             LogAdd("Work Start");
@@ -292,6 +290,12 @@ namespace PopAll_Article_Writer_Server
             LogAdd("Work Stop");
             bt_start.Enabled = true;
             bt_stop.Enabled = false;
+        }
+
+        private void bt_set_Click(object sender, EventArgs e)
+        {
+            SetArticle(tb_subject.Text, tb_body.Text);
+            SetID();
         }
 
         private void 계정불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -317,25 +321,15 @@ namespace PopAll_Article_Writer_Server
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new Thread(Workss).Start();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SetArticle(tb_subject.Text, tb_body.Text);
-        }
-
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (lv_list.SelectedItems.Count > 0)
                 lv_list.SelectedItems[0].Remove();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
     }
 }
