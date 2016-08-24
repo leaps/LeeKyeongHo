@@ -70,7 +70,7 @@ namespace PopAll_Article_Writer_Client
                             GetAccount();
                             LoginFail = 0;
                         }
-                        if (ip_cnt == 0)
+                        if (ip_cnt == 1)
                         {
                             LogAdd(Account, "작업종료 성공 : " + success + " / 실패 : " + fail);
                             SendPacket("None", "작업종료");
@@ -168,6 +168,7 @@ namespace PopAll_Article_Writer_Client
                 {
                     LogAdd(Account, "금일 글쓰기 불가능");
                     SendPacket(ID, "횟수초과");
+                    GetAccount();
                     return 2;
                 }
                 else if (result.Contains("도배방지 코드가"))
