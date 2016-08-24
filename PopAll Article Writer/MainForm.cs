@@ -41,7 +41,6 @@ namespace PopAll_Article_Writer_Client
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2040);
         //EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
         EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popallwriter.oa.to")[0], 2048);
-
         void SendPacket(string ID, string Reason)
         {
             udpSocket.SendTo(Encoding.UTF8.GetBytes(ID + "|" + Reason), remoteEP);
@@ -76,7 +75,7 @@ namespace PopAll_Article_Writer_Client
                             SendPacket("None", "작업종료");
                             write.Abort();
                         }
-
+                        
                         ID = Account.Split('/')[0];
                         PW = Account.Split('/')[1];
 
@@ -84,7 +83,7 @@ namespace PopAll_Article_Writer_Client
                         if (PopLogin(ID, PW))
                         {
                             LogAdd(Account, " - 로그인 성공 / 글 등록대기 60초");
-                            while (true)
+                            while (!write_cnt.Equals(1))
                             {
                                 Console.WriteLine("글작성 패킷 대기");
                                 SendPacket(ID, "등록대기");
@@ -168,7 +167,6 @@ namespace PopAll_Article_Writer_Client
                 {
                     LogAdd(Account, "금일 글쓰기 불가능");
                     SendPacket(ID, "횟수초과");
-                    GetAccount();
                     return 2;
                 }
                 else if (result.Contains("도배방지 코드가"))
