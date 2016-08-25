@@ -402,18 +402,19 @@ namespace PopAll_Article_Writer_Client
                         continue;
                     }
                 }
+                else if (index.Split('/')[0].Equals("OFF") && index.Split('/')[1].Equals(Time))
+                {
+                    WorkState = false;
+                    write.Abort();
+                    continue;
+                }
                 else
                 {
                     //날짜지남 ON/OFF
                     SendPacket("None", "서버접속");
                     WorkState = false;
                 }
-                if (index.Split('/')[0].Equals("OFF"))
-                {
-                    WorkState = false;
-                    write.Abort();
-                    continue;
-                }
+
             }
         }
         
