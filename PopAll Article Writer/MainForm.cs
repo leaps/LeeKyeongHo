@@ -330,7 +330,7 @@ namespace PopAll_Article_Writer_Client
             {
                 using (var WC = new WebClient())
                 {
-                    string[] RawID = WC.DownloadString("http://eogh1439.dothome.co.kr/ID.txt").Split(';');
+                    string[] RawID = WC.DownloadString("http://eogh1439.dothome.co.kr/ID.txt").Replace("<br>", "\n").Split('\n');
                     string[] UsedID = WC.DownloadString(string.Format("http://eogh1439.dothome.co.kr/UsedID{0}.html", Time)).Replace("<br>", string.Empty).Split('\n');
                     string[] Accounts = ReplaceStr(RawID, UsedID);
                     Account = Accounts[new Random().Next(0, Accounts.Length)];

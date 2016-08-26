@@ -202,7 +202,7 @@ namespace PopAll_Article_Writer_Server
                 WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
                 string str = string.Empty;
                 foreach (ListViewItem item in lv_id.Items)
-                    str += item.Text + ";";
+                    str += item.Text + "<br>";
                 http.Open("GET", variables.hostURI + variables.IDSendValue + str);
                 http.Send();
             }
