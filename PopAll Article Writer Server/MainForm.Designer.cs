@@ -38,8 +38,8 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lb_stand = new System.Windows.Forms.Label();
-            this.tb_stand = new System.Windows.Forms.TextBox();
+            this.cm_list = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_timer = new System.Windows.Forms.Label();
             this.tb_timer = new System.Windows.Forms.TextBox();
             this.bt_start = new System.Windows.Forms.Button();
@@ -55,14 +55,11 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cm_id = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.계정불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cm_list = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.제거toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.bt_article = new System.Windows.Forms.Button();
+            this.bt_id = new System.Windows.Forms.Button();
             this.gb_list.SuspendLayout();
-            this.cm_id.SuspendLayout();
             this.cm_list.SuspendLayout();
+            this.cm_id.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_list
@@ -84,8 +81,7 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader11});
+            this.columnHeader5});
             this.lv_list.ContextMenuStrip = this.cm_list;
             this.lv_list.FullRowSelect = true;
             this.lv_list.GridLines = true;
@@ -120,29 +116,27 @@ namespace PopAll_Article_Writer_Server
             // columnHeader5
             // 
             this.columnHeader5.Text = "Time";
-            this.columnHeader5.Width = 130;
+            this.columnHeader5.Width = 140;
             // 
-            // lb_stand
+            // cm_list
             // 
-            this.lb_stand.AutoSize = true;
-            this.lb_stand.Location = new System.Drawing.Point(9, 421);
-            this.lb_stand.Name = "lb_stand";
-            this.lb_stand.Size = new System.Drawing.Size(89, 15);
-            this.lb_stand.TabIndex = 3;
-            this.lb_stand.Text = "Stand by Login";
+            this.cm_list.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeToolStripMenuItem});
+            this.cm_list.Name = "cm_list";
+            this.cm_list.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cm_list.Size = new System.Drawing.Size(118, 26);
             // 
-            // tb_stand
+            // removeToolStripMenuItem
             // 
-            this.tb_stand.Location = new System.Drawing.Point(104, 418);
-            this.tb_stand.Name = "tb_stand";
-            this.tb_stand.Size = new System.Drawing.Size(46, 23);
-            this.tb_stand.TabIndex = 4;
-            this.tb_stand.Text = "10";
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // lb_timer
             // 
             this.lb_timer.AutoSize = true;
-            this.lb_timer.Location = new System.Drawing.Point(35, 450);
+            this.lb_timer.Location = new System.Drawing.Point(12, 450);
             this.lb_timer.Name = "lb_timer";
             this.lb_timer.Size = new System.Drawing.Size(37, 15);
             this.lb_timer.TabIndex = 5;
@@ -150,9 +144,9 @@ namespace PopAll_Article_Writer_Server
             // 
             // tb_timer
             // 
-            this.tb_timer.Location = new System.Drawing.Point(104, 447);
+            this.tb_timer.Location = new System.Drawing.Point(55, 447);
             this.tb_timer.Name = "tb_timer";
-            this.tb_timer.Size = new System.Drawing.Size(46, 23);
+            this.tb_timer.Size = new System.Drawing.Size(32, 23);
             this.tb_timer.TabIndex = 6;
             this.tb_timer.Text = "20";
             // 
@@ -234,6 +228,7 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader10});
             this.lv_id.ContextMenuStrip = this.cm_id;
             this.lv_id.FullRowSelect = true;
+            this.lv_id.GridLines = true;
             this.lv_id.Location = new System.Drawing.Point(247, 326);
             this.lv_id.Name = "lv_id";
             this.lv_id.Size = new System.Drawing.Size(156, 177);
@@ -261,40 +256,25 @@ namespace PopAll_Article_Writer_Server
             this.계정불러오기ToolStripMenuItem.Text = "계정 불러오기";
             this.계정불러오기ToolStripMenuItem.Click += new System.EventHandler(this.계정불러오기ToolStripMenuItem_Click);
             // 
-            // cm_list
+            // bt_article
             // 
-            this.cm_list.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.제거toolStripMenuItem1});
-            this.cm_list.Name = "cm_id";
-            this.cm_list.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cm_list.Size = new System.Drawing.Size(99, 26);
+            this.bt_article.Location = new System.Drawing.Point(12, 325);
+            this.bt_article.Name = "bt_article";
+            this.bt_article.Size = new System.Drawing.Size(147, 23);
+            this.bt_article.TabIndex = 11;
+            this.bt_article.Text = "Set Article";
+            this.bt_article.UseVisualStyleBackColor = true;
+            this.bt_article.Click += new System.EventHandler(this.bt_article_Click);
             // 
-            // 제거toolStripMenuItem1
+            // bt_id
             // 
-            this.제거toolStripMenuItem1.Name = "제거toolStripMenuItem1";
-            this.제거toolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
-            this.제거toolStripMenuItem1.Text = "제거";
-            this.제거toolStripMenuItem1.Click += new System.EventHandler(this.제거toolStripMenuItem1_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 386);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(12, 325);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(229, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.bt_id.Location = new System.Drawing.Point(165, 325);
+            this.bt_id.Name = "bt_id";
+            this.bt_id.Size = new System.Drawing.Size(76, 23);
+            this.bt_id.TabIndex = 12;
+            this.bt_id.Text = "Set ID";
+            this.bt_id.UseVisualStyleBackColor = true;
+            this.bt_id.Click += new System.EventHandler(this.bt_id_Click);
             // 
             // MainForm
             // 
@@ -302,8 +282,8 @@ namespace PopAll_Article_Writer_Server
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(927, 515);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bt_id);
+            this.Controls.Add(this.bt_article);
             this.Controls.Add(this.lv_id);
             this.Controls.Add(this.tb_body);
             this.Controls.Add(this.tb_subject);
@@ -313,8 +293,6 @@ namespace PopAll_Article_Writer_Server
             this.Controls.Add(this.lb_timer);
             this.Controls.Add(this.tb_timer);
             this.Controls.Add(this.gb_list);
-            this.Controls.Add(this.tb_stand);
-            this.Controls.Add(this.lb_stand);
             this.Font = new System.Drawing.Font("맑은 고딕", 9F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
@@ -323,8 +301,8 @@ namespace PopAll_Article_Writer_Server
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.gb_list.ResumeLayout(false);
-            this.cm_id.ResumeLayout(false);
             this.cm_list.ResumeLayout(false);
+            this.cm_id.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -339,8 +317,6 @@ namespace PopAll_Article_Writer_Server
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.Label lb_stand;
-        private System.Windows.Forms.TextBox tb_stand;
         private System.Windows.Forms.Label lb_timer;
         private System.Windows.Forms.TextBox tb_timer;
         private System.Windows.Forms.Button bt_start;
@@ -356,10 +332,9 @@ namespace PopAll_Article_Writer_Server
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ContextMenuStrip cm_id;
         private System.Windows.Forms.ToolStripMenuItem 계정불러오기ToolStripMenuItem;
+        private System.Windows.Forms.Button bt_article;
         private System.Windows.Forms.ContextMenuStrip cm_list;
-        private System.Windows.Forms.ToolStripMenuItem 제거toolStripMenuItem1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
+        private System.Windows.Forms.Button bt_id;
     }
 }

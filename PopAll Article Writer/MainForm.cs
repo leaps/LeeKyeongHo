@@ -73,7 +73,7 @@ namespace PopAll_Article_Writer_Client
         //                {
         //                    LogAdd(Account, "작업종료 성공 : " + success + " / 실패 : " + fail);
         //                    SendPacket("None", "작업종료");
-        //                    wc.DownloadString("http://limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
+        //                    wc.DownloadString("http://eogh1439.dothome.co.kr/usedip.php?ip=" + localEP);
         //                    write.Abort();
         //                }
         //                ID = Account.Split('/')[0];
@@ -144,6 +144,7 @@ namespace PopAll_Article_Writer_Client
                         }
                         if (ip_cnt == 1)
                         {
+                            wc.DownloadString("http://eogh1439.dothome.co.kr/usedip.php?ip=" + localEP);
                             LogAdd(Account, "작업종료 성공 : " + success + " / 실패 : " + fail);
                             SendPacket("None", "작업종료");
                             write.Abort();
@@ -163,17 +164,17 @@ namespace PopAll_Article_Writer_Client
                                 byte[] receiveBuffer = new byte[512];
                                 int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
                                 string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                                //if (rcv == null)
+                                //    continue;
                                 if (!rcv.Equals("작성시작"))
                                     continue;
-                                if (ip_cnt.Equals(1))
-                                    wc.DownloadString("http://limejellys.dothome.co.kr/usedip.php?ip=" + localEP);
                                 while (!ip_cnt.Equals(1))
                                 {
                                     ID = Account.Split('/')[0];
                                     PW = Account.Split('/')[1];
                                     Console.WriteLine(Articletxt);
-                                    _subject = Articletxt.Split('/')[0];
-                                    _body = Articletxt.Split('/')[1].Replace("<br>", "\n");
+                                    _subject = Articletxt.Split('|')[0];
+                                    _body = Articletxt.Split('|')[1].Replace("<br>", "\n");
                                     if (LoginFail >= 1)
                                     {
                                         GetAccount();
@@ -185,9 +186,7 @@ namespace PopAll_Article_Writer_Client
                                         if (num == 1)
                                             success++;
                                         else if (num == 0 || num == 2)
-                                        {
                                             GetAccount();
-                                        }
                                         else
                                             fail++;
                                     }
@@ -214,6 +213,7 @@ namespace PopAll_Article_Writer_Client
                 }
             }
         }
+
         int PopWrite(string subject, string body)
         {
             try
@@ -330,7 +330,7 @@ namespace PopAll_Article_Writer_Client
             {
                 using (var WC = new WebClient())
                 {
-                    string[] RawID = WC.DownloadString("http://eogh1439.dothome.co.kr/ID.txt").Split(';');
+                    string[] RawID = WC.DownloadString("http://eogh1439.dothome.co.kr/ID.txt").Replace("<br>", "\n").Split('\n');
                     string[] UsedID = WC.DownloadString(string.Format("http://eogh1439.dothome.co.kr/UsedID{0}.html", Time)).Replace("<br>", string.Empty).Split('\n');
                     string[] Accounts = ReplaceStr(RawID, UsedID);
                     Account = Accounts[new Random().Next(0, Accounts.Length)];
@@ -402,12 +402,19 @@ namespace PopAll_Article_Writer_Client
                         continue;
                     }
                 }
+                else if (index.Split('/')[0].Equals("OFF") && index.Split('/')[1].Equals(Time))
+                {
+                    WorkState = false;
+                    write.Abort();
+                    continue;
+                }
                 else
                 {
                     //날짜지남 ON/OFF
                     SendPacket("None", "서버접속");
                     WorkState = false;
                 }
+
             }
         }
         
@@ -433,7 +440,7 @@ namespace PopAll_Article_Writer_Client
         {
             while (true)
             {
-                if (new WebClient().DownloadString("http://limejellys.dothome.co.kr/Kill.txt").Equals("O"))
+                if (new WebClient().DownloadString("http://eogh1439.dothome.co.kr/Kill.txt").Equals("O"))
                     System.Diagnostics.Process.GetCurrentProcess().Kill();
                 Thread.Sleep(1000);
             }

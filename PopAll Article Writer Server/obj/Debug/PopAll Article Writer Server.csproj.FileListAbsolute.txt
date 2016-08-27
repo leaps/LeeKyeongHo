@@ -56,3 +56,4 @@ C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Wr
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\PopAll Article Writer Server.csproj.ResolveComReference.cache
 C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\Interop.WinHttp.dll
 C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\PopAll Article Writer Server.csproj.ResolveComReference.cache
+C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Debug\PopAll_Article_Writer_Server.LoginForm.resources

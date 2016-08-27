@@ -18,9 +18,7 @@ namespace PopAll_Article_Writer_Server
             byte[] keyBytes = new byte[16];
             int len = pwdBytes.Length;
             if (len > keyBytes.Length)
-            {
                 len = keyBytes.Length;
-            }
             Array.Copy(pwdBytes, keyBytes, len);
             rijndaelCipher.Key = keyBytes;
             rijndaelCipher.IV = keyBytes;
@@ -38,9 +36,7 @@ namespace PopAll_Article_Writer_Server
             byte[] keyBytes = new byte[16];
             int len = pwdBytes.Length;
             if (len > keyBytes.Length)
-            {
                 len = keyBytes.Length;
-            }
             Array.Copy(pwdBytes, keyBytes, len);
             rijndaelCipher.Key = keyBytes;
             rijndaelCipher.IV = keyBytes;

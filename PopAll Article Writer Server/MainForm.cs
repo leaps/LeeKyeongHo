@@ -79,7 +79,7 @@ namespace PopAll_Article_Writer_Server
                     //    }
                     //}
                     //else
-                        ModifyItem(lv_list, remoteIP, rcv);
+                    ModifyItem(lv_list, remoteIP, rcv);
 
                     //udpSocket.SendTo(receiveBuffer, receivedSize, SocketFlags.None, remoteEP);
 
@@ -94,7 +94,7 @@ namespace PopAll_Article_Writer_Server
         void ClientState()
         {
             Console.WriteLine("필터링");
-            string[] usedip = new WebClient().DownloadString(string.Format("http://limejellys.dothome.co.kr/UsedIP{0:yyyyMMdd}", DateTime.Now)).Replace("<br>", string.Empty).Split('\n');
+            string[] usedip = new WebClient().DownloadString(string.Format("http://eogh1439.dothome.co.kr/UsedIP{0:yyyyMMdd}", DateTime.Now)).Replace("<br>", string.Empty).Split('\n');
             while (true)
             {
                 foreach (ListViewItem item in lv_list.Items)
@@ -147,7 +147,6 @@ namespace PopAll_Article_Writer_Server
                     item.SubItems[4].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 }
             }
-
             else
             {
                 ListViewItem lvi = new ListViewItem(remoteIP);
@@ -189,7 +188,7 @@ namespace PopAll_Article_Writer_Server
             try
             {
                 WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
-                string Articletxt = string.Format("{0}/{1}", subject, body.Replace("\n", "<br>"));
+                string Articletxt = string.Format("{0}|{1}", subject, body.Replace("\n", "<br>"));
                 http.Open("GET", variables.hostURI + variables.ArticleSendValue + Articletxt);
                 http.Send();
             }
@@ -203,8 +202,20 @@ namespace PopAll_Article_Writer_Server
                 WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
                 string str = string.Empty;
                 foreach (ListViewItem item in lv_id.Items)
-                    str += item.Text + ";";
+                    str += item.Text + "<br>";
                 http.Open("GET", variables.hostURI + variables.IDSendValue + str);
+                http.Send();
+            }
+            catch { }
+        }
+
+        void SetIndex(string index)
+        {
+            try
+            {
+                WinHttp.WinHttpRequest http = new WinHttp.WinHttpRequest();
+                string str = string.Format("<? $Time = date(\"Ymd\"); echo \"{0}/$Time\";?>", index);
+                http.Open("GET", variables.hostURI + variables.indexSendValue + str);
                 http.Send();
             }
             catch { }
@@ -215,7 +226,7 @@ namespace PopAll_Article_Writer_Server
             CheckForIllegalCrossThreadCalls = false;
             try
             {
-                int Max = int.Parse(tb_stand.Text);
+                int Max = 10;
                 int Delay = int.Parse(tb_timer.Text) * 1000;
                 int i = 0;
 
@@ -227,6 +238,7 @@ namespace PopAll_Article_Writer_Server
                     {
                         udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
                         item.SubItems[2].Text = "작성시작";
+                        LogAdd("Start IP : " + item.SubItems[0].Text);
                         Console.WriteLine("작성시작");
                         Thread.Sleep(Delay);
                     }
@@ -237,42 +249,31 @@ namespace PopAll_Article_Writer_Server
                     }
                     i++;
                 }
-                LogAdd("End Of Work");
             }
             catch { }
         }
 
-        void Works()
-        {
-            CheckForIllegalCrossThreadCalls = false;
-            //if ((DateTime.Parse(item.SubItems[4].Text).AddMinutes(1)).CompareTo(DateTime.Now) < 0)
-            try
-            {
-                int Delay = int.Parse(tb_timer.Text) * 1000;
-                int i = 0;
-                foreach (ListViewItem item in lv_list.Items)
-                {
-                    item.SubItems[5].Text = "개씨발 경호";
-                }
-                LogAdd("End Of Work");
-            }
-            catch { }
-        }
+        //void Work()
+        //{
+        //    CheckForIllegalCrossThreadCalls = false;
+        //    try
+        //    {
+        //        int Delay = int.Parse(tb_timer.Text) * 1000;
 
-        void Workss()
-        {
-            CheckForIllegalCrossThreadCalls = false;
-            try
-            {
-                foreach (ListViewItem item in lv_list.Items)
-                {
-                    udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
-                    item.SubItems[2].Text = "작성시작";
-                }
-                LogAdd("End Of Work");
-            }
-            catch { }
-        }
+        //        foreach (ListViewItem item in lv_list.Items)
+        //        {
+        //            if (item.SubItems[2].Text.Equals("등록대기"))
+        //            {
+        //                udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+        //                item.SubItems[2].Text = "작성시작";
+        //                LogAdd("Start IP : " + item.SubItems[0].Text);
+        //                Console.WriteLine("작성시작");
+        //                Thread.Sleep(Delay);
+        //            }
+        //        }
+        //    }
+        //    catch { }
+        //}
 
         void LogAdd(string value)
         {
@@ -291,8 +292,7 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_start_Click(object sender, EventArgs e)
         {
-            //SetArticle(tb_subject.Text, tb_body.Text);
-            //SetID();
+            SetIndex("ON");
             th = new Thread(new ThreadStart(Work));
             th.Start();
             LogAdd("Work Start");
@@ -302,10 +302,21 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_stop_Click(object sender, EventArgs e)
         {
+            SetIndex("OFF");
             th.Abort();
             LogAdd("Work Stop");
             bt_start.Enabled = true;
             bt_stop.Enabled = false;
+        }
+
+        private void bt_article_Click(object sender, EventArgs e)
+        {
+            SetArticle(tb_subject.Text, tb_body.Text);
+        }
+
+        private void bt_id_Click(object sender, EventArgs e)
+        {
+            SetID();
         }
 
         private void 계정불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -331,25 +342,15 @@ namespace PopAll_Article_Writer_Server
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
-        }
-
-        private void 제거toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (lv_list.SelectedItems.Count > 0)
                 lv_list.SelectedItems[0].Remove();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            new Thread(Workss).Start();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SetArticle(tb_subject.Text, tb_body.Text);
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
     }
 }
