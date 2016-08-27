@@ -81,5 +81,10 @@ namespace PopAll_Article_Writer_Server
                 MessageBox.Show("Access");
             }
         }
+
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+        }
     }
 }
