@@ -57,6 +57,7 @@ namespace PopAll_Article_Writer_Server
             this.계정불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bt_article = new System.Windows.Forms.Button();
             this.bt_id = new System.Windows.Forms.Button();
+            this.bt_write = new System.Windows.Forms.Button();
             this.gb_list.SuspendLayout();
             this.cm_list.SuspendLayout();
             this.cm_id.SuspendLayout();
@@ -136,7 +137,7 @@ namespace PopAll_Article_Writer_Server
             // lb_timer
             // 
             this.lb_timer.AutoSize = true;
-            this.lb_timer.Location = new System.Drawing.Point(12, 450);
+            this.lb_timer.Location = new System.Drawing.Point(12, 451);
             this.lb_timer.Name = "lb_timer";
             this.lb_timer.Size = new System.Drawing.Size(37, 15);
             this.lb_timer.TabIndex = 5;
@@ -144,7 +145,7 @@ namespace PopAll_Article_Writer_Server
             // 
             // tb_timer
             // 
-            this.tb_timer.Location = new System.Drawing.Point(55, 447);
+            this.tb_timer.Location = new System.Drawing.Point(55, 448);
             this.tb_timer.Name = "tb_timer";
             this.tb_timer.Size = new System.Drawing.Size(32, 23);
             this.tb_timer.TabIndex = 6;
@@ -152,7 +153,7 @@ namespace PopAll_Article_Writer_Server
             // 
             // bt_start
             // 
-            this.bt_start.Location = new System.Drawing.Point(12, 480);
+            this.bt_start.Location = new System.Drawing.Point(15, 480);
             this.bt_start.Name = "bt_start";
             this.bt_start.Size = new System.Drawing.Size(75, 23);
             this.bt_start.TabIndex = 7;
@@ -276,12 +277,23 @@ namespace PopAll_Article_Writer_Server
             this.bt_id.UseVisualStyleBackColor = true;
             this.bt_id.Click += new System.EventHandler(this.bt_id_Click);
             // 
+            // bt_write
+            // 
+            this.bt_write.Location = new System.Drawing.Point(93, 448);
+            this.bt_write.Name = "bt_write";
+            this.bt_write.Size = new System.Drawing.Size(75, 23);
+            this.bt_write.TabIndex = 13;
+            this.bt_write.Text = "Write";
+            this.bt_write.UseVisualStyleBackColor = true;
+            this.bt_write.Click += new System.EventHandler(this.bt_write_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(927, 515);
+            this.ClientSize = new System.Drawing.Size(927, 518);
+            this.Controls.Add(this.bt_write);
             this.Controls.Add(this.bt_id);
             this.Controls.Add(this.bt_article);
             this.Controls.Add(this.lv_id);
@@ -336,5 +348,6 @@ namespace PopAll_Article_Writer_Server
         private System.Windows.Forms.ContextMenuStrip cm_list;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.Button bt_id;
+        private System.Windows.Forms.Button bt_write;
     }
 }
