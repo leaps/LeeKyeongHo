@@ -228,6 +228,7 @@ namespace PopAll_Article_Writer_Server
             this.columnHeader10});
             this.lv_id.ContextMenuStrip = this.cm_id;
             this.lv_id.FullRowSelect = true;
+            this.lv_id.GridLines = true;
             this.lv_id.Location = new System.Drawing.Point(247, 326);
             this.lv_id.Name = "lv_id";
             this.lv_id.Size = new System.Drawing.Size(156, 177);
