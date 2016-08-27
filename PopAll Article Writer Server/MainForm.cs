@@ -229,15 +229,12 @@ namespace PopAll_Article_Writer_Server
             CheckForIllegalCrossThreadCalls = false;
             try
             {
-                int Max = 10;
-                int i = 0;
-
                 foreach (ListViewItem item in lv_list.Items)
                 {
                     int Delay = int.Parse(tb_timer.Text) * 1000;
                     if (!item.SubItems[2].Text.Equals("등록대기"))
                         continue;
-                    if (i <= Max)
+                    else
                     {
                         udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
                         item.SubItems[2].Text = "작성시작";
@@ -245,12 +242,6 @@ namespace PopAll_Article_Writer_Server
                         Console.WriteLine("작성시작");
                         Thread.Sleep(Delay);
                     }
-                    else
-                    {
-                        i = 0;
-                        Thread.Sleep(Delay);
-                    }
-                    i++;
                 }
                 bt_write.Enabled = true;
             }

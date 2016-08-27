@@ -164,8 +164,8 @@ namespace PopAll_Article_Writer_Client
                                 byte[] receiveBuffer = new byte[512];
                                 int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
                                 string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-                                //if (rcv == null)
-                                //    continue;
+                                if (rcv == null)
+                                    continue;
                                 if (!rcv.Equals("작성시작"))
                                     continue;
                                 while (!ip_cnt.Equals(1))
