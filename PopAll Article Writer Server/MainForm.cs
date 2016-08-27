@@ -27,6 +27,7 @@ namespace PopAll_Article_Writer_Server
         byte[] receiveBuffer = new byte[512];
         Thread th;
         int i = 0;
+        int WriteCount = 0;
 
         string GetPCState(ListView lv)
         {
@@ -38,7 +39,7 @@ namespace PopAll_Article_Writer_Server
                 else
                     R++;
             }
-            return string.Format("PC : {0}, 등록대기 : {1}, 준비중 : {2}", lv.Items.Count, SB, R);
+            return string.Format("PC : {0}, 작성성공 : {1}, 등록대기 : {2}, 준비중 : {3}", lv.Items.Count, WriteCount, SB, R);
         }
 
         void StartServer()
@@ -135,6 +136,7 @@ namespace PopAll_Article_Writer_Server
                 }
                 else if (rcvs.Contains("등록성공"))
                 {
+                    WriteCount++;
                     item.SubItems[1].Text = rcvs.Split('|')[0];
                     item.SubItems[2].Text = rcvs.Split('|')[1];
                     item.SubItems[3].Text = "Article " + rcvs.Split('|')[2] + ", IP " + rcvs.Split('|')[3];
@@ -162,6 +164,7 @@ namespace PopAll_Article_Writer_Server
                 //else if (rcvs.Contains("등록성공"))
                 if (rcvs.Contains("등록성공"))
                 {
+                    WriteCount++;
                     lvi.SubItems.Add(rcvs.Split('|')[1]);
                     lvi.SubItems.Add("Article " + rcvs.Split('|')[2] + ", IP " + rcvs.Split('|')[3]);
                     lvi.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -249,6 +252,7 @@ namespace PopAll_Article_Writer_Server
                     }
                     i++;
                 }
+                bt_write.Enabled = true;
             }
             catch { }
         }
@@ -292,9 +296,12 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_start_Click(object sender, EventArgs e)
         {
-            SetIndex("ON");
-            th = new Thread(new ThreadStart(Work));
-            th.Start();
+            foreach (ListViewItem item in lv_list.Items)
+            {
+                udpSocket.SendTo(Encoding.UTF8.GetBytes("작업시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                item.SubItems[2].Text = "작업대기";
+            }
+            //SetIndex("ON");
             LogAdd("Work Start");
             bt_start.Enabled = false;
             bt_stop.Enabled = true;
@@ -302,11 +309,25 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_stop_Click(object sender, EventArgs e)
         {
-            SetIndex("OFF");
+            foreach (ListViewItem item in lv_list.Items)
+            {
+                udpSocket.SendTo(Encoding.UTF8.GetBytes("작업종료"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                item.SubItems[2].Text = "종료대기";
+            }
+            //SetIndex("OFF");
             th.Abort();
             LogAdd("Work Stop");
             bt_start.Enabled = true;
             bt_stop.Enabled = false;
+        }
+
+        private void bt_write_Click(object sender, EventArgs e)
+        {
+            //SetIndex("WRITE");
+            th = new Thread(new ThreadStart(Work));
+            th.Start();
+            LogAdd("Write Start");
+            bt_write.Enabled = false;
         }
 
         private void bt_article_Click(object sender, EventArgs e)

@@ -377,46 +377,46 @@ namespace PopAll_Article_Writer_Client
             WC.DownloadFile(URL, path + @"\pic.png");
         }
 
-        void ProcessState()
-        {
-            SendPacket("None", "서버접속");
-            for (;;)
-            {
-                Time = string.Format("{0:yyyyMMdd}", DateTime.Now);
-                string index = new WebClient().DownloadString("http://eogh1439.dothome.co.kr/index.php").Trim();
-                Thread.Sleep(5000);
-                if (index.Split('/')[0].Equals("ON") && index.Split('/')[1].Equals(Time))
-                {
-                    if (WorkState)
-                    {
-                        //이미작업함
-                        SendPacket("None", "서버접속");
-                        continue;
-                    }
-                    else
-                    {
-                        WorkState = true;
-                        Console.WriteLine("작업시작");
-                        write = new Thread(new ThreadStart(Work));
-                        write.Start();
-                        continue;
-                    }
-                }
-                else if (index.Split('/')[0].Equals("OFF") && index.Split('/')[1].Equals(Time))
-                {
-                    WorkState = false;
-                    write.Abort();
-                    continue;
-                }
-                else
-                {
-                    //날짜지남 ON/OFF
-                    SendPacket("None", "서버접속");
-                    WorkState = false;
-                }
+        //void ProcessState()
+        //{
+        //    SendPacket("None", "서버접속");
+        //    for (;;)
+        //    {
+        //        Time = string.Format("{0:yyyyMMdd}", DateTime.Now);
+        //        string index = new WebClient().DownloadString("http://eogh1439.dothome.co.kr/index.php").Trim();
+        //        Thread.Sleep(5000);
+        //        if (index.Split('/')[0].Equals("ON") && index.Split('/')[1].Equals(Time))
+        //        {
+        //            if (WorkState)
+        //            {
+        //                //이미작업함
+        //                SendPacket("None", "서버접속");
+        //                continue;
+        //            }
+        //            else
+        //            {
+        //                WorkState = true;
+        //                Console.WriteLine("작업시작");
+        //                write = new Thread(new ThreadStart(Work));
+        //                write.Start();
+        //                continue;
+        //            }
+        //        }
+        //        else if (index.Split('/')[0].Equals("OFF") && index.Split('/')[1].Equals(Time))
+        //        {
+        //            WorkState = false;
+        //            write.Abort();
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            //날짜지남 ON/OFF
+        //            SendPacket("None", "서버접속");
+        //            WorkState = false;
+        //        }
 
-            }
-        }
+        //    }
+        //}
         
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -433,6 +433,34 @@ namespace PopAll_Article_Writer_Client
                 GetAccount();
                 new Thread(ProcessState).Start();
                 Console.WriteLine("아이피 추가 완료");
+            }
+        }
+
+        void ProcessState()
+        {
+            byte[] receiveBuffer = new byte[512];
+            while (true)
+            {
+                SendPacket("None", "서버접속");
+                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                if (rcv != null)
+                {
+                    if (rcv.Equals("작업종료") && WorkState)
+                    {
+                        write.Abort();
+                        WorkState = false;
+                        SendPacket("None", "작업종료");
+                    }
+
+                    else if (rcv.Equals("작업시작") && !WorkState)
+                    {
+                        write = new Thread(new ThreadStart(Work));
+                        write.Start();
+                        WorkState = true;
+                        SendPacket("None", "작업시작");
+                    }
+                }
             }
         }
 
