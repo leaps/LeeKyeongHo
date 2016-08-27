@@ -230,11 +230,11 @@ namespace PopAll_Article_Writer_Server
             try
             {
                 int Max = 10;
-                int Delay = int.Parse(tb_timer.Text) * 1000;
                 int i = 0;
 
                 foreach (ListViewItem item in lv_list.Items)
                 {
+                    int Delay = int.Parse(tb_timer.Text) * 1000;
                     if (!item.SubItems[2].Text.Equals("등록대기"))
                         continue;
                     if (i <= Max)
