@@ -402,39 +402,14 @@ namespace PopAll_Article_Writer_Client
         //                continue;
         //            }
         //        }
-        //        else if (index.Split('/')[0].Equals("OFF") && index.Split('/')[1].Equals(Time))
-        //        {
-        //            WorkState = false;
-        //            write.Abort();
-        //            continue;
-        //        }
         //        else
         //        {
         //            //날짜지남 ON/OFF
         //            SendPacket("None", "서버접속");
         //            WorkState = false;
         //        }
-
         //    }
         //}
-        
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            //Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            //if (key.GetValue("PopAll") == null)
-            //    key.SetValue("PopAll", Application.ExecutablePath.ToString());
-            new Thread(Kill).Start();
-            if (System.Diagnostics.Process.GetProcessesByName("Article").Length > 1)
-                System.Diagnostics.Process.GetProcessesByName("Article")[1].Kill();
-
-            if (new WebClient().DownloadString("http://eogh1439.dothome.co.kr/AddIP.php").Contains("Done."))
-            {
-                udpSocket.Bind(localEP);
-                GetAccount();
-                new Thread(ProcessState).Start();
-                Console.WriteLine("아이피 추가 완료");
-            }
-        }
 
         void ProcessState()
         {
@@ -461,6 +436,24 @@ namespace PopAll_Article_Writer_Client
                         SendPacket("None", "작업시작");
                     }
                 }
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            //if (key.GetValue("PopAll") == null)
+            //    key.SetValue("PopAll", Application.ExecutablePath.ToString());
+            new Thread(Kill).Start();
+            if (System.Diagnostics.Process.GetProcessesByName("Article").Length > 1)
+                System.Diagnostics.Process.GetProcessesByName("Article")[1].Kill();
+
+            if (new WebClient().DownloadString("http://eogh1439.dothome.co.kr/AddIP.php").Contains("Done."))
+            {
+                udpSocket.Bind(localEP);
+                GetAccount();
+                new Thread(ProcessState).Start();
+                Console.WriteLine("아이피 추가 완료");
             }
         }
 
