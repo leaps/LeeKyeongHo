@@ -29,7 +29,7 @@ namespace PopAll_Article_Writer_Server
             {
                 sendReq.Open("GET", variables.hostURI + Value);
                 sendReq.Send();
-                MessageBox.Show("요청을 완료하였습니다.");
+                MessageBox.Show("Request", "PopAll Article Writer Server", MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -67,7 +67,8 @@ namespace PopAll_Article_Writer_Server
         {
             if (AccessUser(tb_serial.Text))
             {
-                MessageBox.Show("Access");
+                MessageBox.Show("Access", "PopAll Article Writer Server", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                new MainForm().Show();
             }
         }
 
@@ -78,7 +79,8 @@ namespace PopAll_Article_Writer_Server
                 tb_serial.Text = obj["VolumeSerialNumber"].ToString();
             if (AccessUser(tb_serial.Text))
             {
-                MessageBox.Show("Access");
+                MessageBox.Show("Access", "PopAll Article Writer Server", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                new MainForm().Show();
             }
         }
 

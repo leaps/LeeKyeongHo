@@ -16,7 +16,7 @@ namespace PopAll_Article_Writer_Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new MainForm());
         }
     }
 }
