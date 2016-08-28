@@ -427,7 +427,6 @@ namespace PopAll_Article_Writer_Client
                         WorkState = false;
                         SendPacket("None", "작업종료");
                     }
-
                     else if (rcv.Equals("작업시작") && !WorkState)
                     {
                         write = new Thread(new ThreadStart(Work));
@@ -436,6 +435,15 @@ namespace PopAll_Article_Writer_Client
                         SendPacket("None", "작업시작");
                     }
                 }
+            }
+        }
+
+        void PacketSend()
+        {
+            while(true)
+            {
+                SendPacket("None", "서버접속");
+                Thread.Sleep(3000);
             }
         }
 
@@ -452,6 +460,7 @@ namespace PopAll_Article_Writer_Client
             {
                 udpSocket.Bind(localEP);
                 GetAccount();
+                new Thread(PacketSend).Start();
                 new Thread(ProcessState).Start();
                 Console.WriteLine("아이피 추가 완료");
             }

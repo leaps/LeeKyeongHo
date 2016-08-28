@@ -67,7 +67,9 @@ namespace PopAll_Article_Writer_Server
         {
             if (AccessUser(tb_serial.Text))
             {
+                tm_timer.Stop();
                 MessageBox.Show("Access", "PopAll Article Writer Server", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                this.Hide();
                 new MainForm().Show();
             }
         }
@@ -79,7 +81,9 @@ namespace PopAll_Article_Writer_Server
                 tb_serial.Text = obj["VolumeSerialNumber"].ToString();
             if (AccessUser(tb_serial.Text))
             {
+                tm_timer.Stop();
                 MessageBox.Show("Access", "PopAll Article Writer Server", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Hide();
                 new MainForm().Show();
             }
         }
