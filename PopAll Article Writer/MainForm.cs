@@ -41,6 +41,8 @@ namespace PopAll_Article_Writer_Client
         EndPoint localEP = new IPEndPoint(IPAddress.Any, 2040);
         //EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popall.0pe.kr")[0], 2048);
         EndPoint remoteEP = new IPEndPoint(Dns.GetHostAddresses("popallwriter.oa.to")[0], 2048);
+        bool WriteState = false;
+
         void SendPacket(string ID, string Reason)
         {
             udpSocket.SendTo(Encoding.UTF8.GetBytes(ID + "|" + Reason), remoteEP);
@@ -162,9 +164,20 @@ namespace PopAll_Article_Writer_Client
                                 Console.WriteLine("글작성 패킷 대기");
                                 SendPacket(ID, "등록대기");
                                 byte[] receiveBuffer = new byte[512];
-                                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
-                                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-                                if (rcv == null)
+                                int receivedSize = 0;
+                                string rcv = string.Empty;
+                                if (WriteState)
+                                {
+                                    receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+                                    rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                                    WriteState = false;
+                                }
+                                else
+                                {
+                                    WriteState = true;
+                                    continue;
+                                }
+                                if (rcv == string.Empty)
                                     continue;
                                 if (!rcv.Equals("작성시작"))
                                     continue;
@@ -416,23 +429,29 @@ namespace PopAll_Article_Writer_Client
             byte[] receiveBuffer = new byte[512];
             while (true)
             {
-                SendPacket("None", "서버접속");
-                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
-                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-                if (rcv != null)
+                if (!WriteState)
                 {
-                    if (rcv.Equals("작업종료") && WorkState)
+                    int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+                    string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+                    if (rcv != null)
                     {
-                        write.Abort();
-                        WorkState = false;
-                        SendPacket("None", "작업종료");
-                    }
-                    else if (rcv.Equals("작업시작") && !WorkState)
-                    {
-                        write = new Thread(new ThreadStart(Work));
-                        write.Start();
-                        WorkState = true;
-                        SendPacket("None", "작업시작");
+                        if (rcv.Equals("작업종료"))
+                        {
+                            WriteState = true;
+                        }
+                        else if (rcv.Equals("작업종료") && WorkState)
+                        {
+                            write.Abort();
+                            WorkState = false;
+                            SendPacket("None", "작업종료");
+                        }
+                        else if (rcv.Equals("작업시작") && !WorkState)
+                        {
+                            write = new Thread(new ThreadStart(Work));
+                            write.Start();
+                            WorkState = true;
+                            SendPacket("None", "작업시작");
+                        }
                     }
                 }
             }
@@ -455,6 +474,8 @@ namespace PopAll_Article_Writer_Client
             new Thread(Kill).Start();
             if (System.Diagnostics.Process.GetProcessesByName("Article").Length > 1)
                 System.Diagnostics.Process.GetProcessesByName("Article")[1].Kill();
+
+            udpSocket.ReceiveTimeout = 10000;
 
             if (new WebClient().DownloadString("http://eogh1439.dothome.co.kr/AddIP.php").Contains("Done."))
             {
