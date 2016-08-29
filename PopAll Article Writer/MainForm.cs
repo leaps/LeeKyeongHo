@@ -161,15 +161,21 @@ namespace PopAll_Article_Writer_Client
                             {
                                 Console.WriteLine("글작성 패킷 대기");
                                 SendPacket(ID, "등록대기");
+
                                 byte[] receiveBuffer = new byte[512];
                                 int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
                                 string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
-                                if (rcv == null)
+                                if (rcv.Equals("작업시작") || rcv.Equals("작업종료"))
+                                {
+                                    ProcessState(rcv);
                                     continue;
+                                }
                                 if (!rcv.Equals("작성시작"))
                                     continue;
+
                                 while (!ip_cnt.Equals(1))
                                 {
+                                    SendPacket(ID, "작성중");
                                     ID = Account.Split('/')[0];
                                     PW = Account.Split('/')[1];
                                     Console.WriteLine(Articletxt);
@@ -411,31 +417,86 @@ namespace PopAll_Article_Writer_Client
         //    }
         //}
 
-        void ProcessState()
+        //void ProcessState()
+        //{
+        //    byte[] receiveBuffer = new byte[512];
+        //    write = new Thread(new ThreadStart(Work));
+        //    while (true)
+        //    {
+        //        int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+        //        string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+        //        if (rcv != null)
+        //        {
+        //            if (rcv.Equals("작업종료") && write.IsAlive)
+        //            {
+        //                write.Abort();
+        //                SendPacket("None", "작업종료");
+        //            }
+
+        //            else if (rcv.Equals("작업시작") && !write.IsAlive)
+        //            {
+        //                write.Start();
+        //                SendPacket("None", "작업시작");
+        //            }
+        //        }
+        //    }
+        //}
+
+        void ProcessState(string rcv)
         {
             byte[] receiveBuffer = new byte[512];
+            write = new Thread(new ThreadStart(Work));
             while (true)
             {
-                SendPacket("None", "서버접속");
-                int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
-                string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
                 if (rcv != null)
                 {
-                    if (rcv.Equals("작업종료") && WorkState)
+                    if (rcv.Equals("작업종료") && write.IsAlive)
                     {
                         write.Abort();
-                        WorkState = false;
                         SendPacket("None", "작업종료");
                     }
 
-                    else if (rcv.Equals("작업시작") && !WorkState)
+                    else if (rcv.Equals("작업시작") && !write.IsAlive)
                     {
-                        write = new Thread(new ThreadStart(Work));
                         write.Start();
-                        WorkState = true;
                         SendPacket("None", "작업시작");
                     }
                 }
+            }
+        }
+
+        void Receiver()
+        {
+            byte[] receiveBuffer = new byte[512];
+            int receivedSize = udpSocket.ReceiveFrom(receiveBuffer, ref remoteEP);
+            string rcv = Encoding.UTF8.GetString(receiveBuffer, 0, receivedSize);
+            if (rcv != null)
+            {
+                if (rcv.Equals("작성시작"))
+                {
+                    WorkState = true;
+                }
+
+                else if (rcv.Equals("작업종료") && write.IsAlive)
+                {
+                    write.Abort();
+                    SendPacket("None", "작업종료");
+                }
+
+                else if (rcv.Equals("작업시작") && !write.IsAlive)
+                {
+                    write.Start();
+                    SendPacket("None", "작업시작");
+                }
+            }
+        }
+
+        void RefreshSend()
+        {
+            while (true)
+            {
+                SendPacket("None", "서버접속");
+                Thread.Sleep(5000);
             }
         }
 
@@ -444,6 +505,7 @@ namespace PopAll_Article_Writer_Client
             //Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
             //if (key.GetValue("PopAll") == null)
             //    key.SetValue("PopAll", Application.ExecutablePath.ToString());
+            write = new Thread(new ThreadStart(Work));
             new Thread(Kill).Start();
             if (System.Diagnostics.Process.GetProcessesByName("Article").Length > 1)
                 System.Diagnostics.Process.GetProcessesByName("Article")[1].Kill();
@@ -452,7 +514,8 @@ namespace PopAll_Article_Writer_Client
             {
                 udpSocket.Bind(localEP);
                 GetAccount();
-                new Thread(ProcessState).Start();
+                //new Thread(ProcessState).Start();
+                new Thread(RefreshSend).Start();
                 Console.WriteLine("아이피 추가 완료");
             }
         }

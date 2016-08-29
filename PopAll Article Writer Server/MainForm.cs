@@ -26,7 +26,6 @@ namespace PopAll_Article_Writer_Server
         EndPoint remoteEP = new IPEndPoint(IPAddress.None, 2040);
         byte[] receiveBuffer = new byte[512];
         Thread th;
-        int i = 0;
         int WriteCount = 0;
 
         string GetPCState(ListView lv)
@@ -34,7 +33,7 @@ namespace PopAll_Article_Writer_Server
             int SB = 0, R = 0;
             foreach (ListViewItem item in lv_list.Items)
             {
-                if (item.SubItems[2].Text.Equals("등록대기"))
+                if (item.SubItems[2].Text.Equals("등록대기") || item.SubItems[2].Text.Equals("작성시작"))
                     SB++;
                 else
                     R++;
@@ -183,7 +182,7 @@ namespace PopAll_Article_Writer_Server
             lvi_item.SubItems.Add(rcvs.Split('|')[0]);
             lvi_item.SubItems.Add(rcvs.Split('|')[1]);
             lv_log.Items.Add(lvi_item);
-            //lv_log.EnsureVisible(lv.Items.Count - 1);
+            lv_log.EnsureVisible(lv.Items.Count - 1);
         }
 
         void SetArticle(string subject, string body)
@@ -236,7 +235,7 @@ namespace PopAll_Article_Writer_Server
                         continue;
                     else
                     {
-                        udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                        udpSocket.SendTo(Encoding.UTF8.GetBytes("작성시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
                         item.SubItems[2].Text = "작성시작";
                         LogAdd("Start IP : " + item.SubItems[0].Text);
                         Console.WriteLine("작성시작");
@@ -289,7 +288,7 @@ namespace PopAll_Article_Writer_Server
         {
             foreach (ListViewItem item in lv_list.Items)
             {
-                udpSocket.SendTo(Encoding.UTF8.GetBytes("작업시작"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                udpSocket.SendTo(Encoding.UTF8.GetBytes("작업시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
                 item.SubItems[2].Text = "작업대기";
             }
             //SetIndex("ON");
@@ -302,11 +301,11 @@ namespace PopAll_Article_Writer_Server
         {
             foreach (ListViewItem item in lv_list.Items)
             {
-                udpSocket.SendTo(Encoding.UTF8.GetBytes("작업종료"), new IPEndPoint(IPAddress.Parse(lv_list.Items[i].SubItems[0].Text), 2040));
+                udpSocket.SendTo(Encoding.UTF8.GetBytes("작업종료"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
                 item.SubItems[2].Text = "종료대기";
             }
             //SetIndex("OFF");
-            th.Abort();
+            //th.Abort();
             LogAdd("Work Stop");
             bt_start.Enabled = true;
             bt_stop.Enabled = false;

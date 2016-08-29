@@ -30,3 +30,4 @@ C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Wr
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Release\PopAll_Article_Writer_Server.Properties.Resources.resources
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Release\PopAll Article Writer Server.csproj.GenerateResource.Cache
 C:\Users\lho67\Documents\Visual Studio 2015\GitHub\LeeKyeongHo\PopAll Article Writer Server\obj\Release\PopAll_Article_Writer_Server.LoginForm.resources
+C:\Users\형준\Source\Repos\LeeKyeongHo\PopAll Article Writer Server\obj\Release\PopAll_Article_Writer_Server.LoginForm.resources
