@@ -438,6 +438,7 @@ namespace PopAll_Article_Writer_Client
                         if (rcv.Equals("작업종료"))
                         {
                             WriteState = true;
+                            continue;
                         }
                         else if (rcv.Equals("작업종료") && WorkState)
                         {
