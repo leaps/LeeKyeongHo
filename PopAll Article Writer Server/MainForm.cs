@@ -286,11 +286,11 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_start_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in lv_list.Items)
-            {
-                udpSocket.SendTo(Encoding.UTF8.GetBytes("작업시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
-                item.SubItems[2].Text = "작업대기";
-            }
+            //foreach (ListViewItem item in lv_list.Items)
+            //{
+            //    udpSocket.SendTo(Encoding.UTF8.GetBytes("작업시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
+            //    item.SubItems[2].Text = "작업대기";
+            //}
             SetIndex("ON");
             LogAdd("Work Start");
             bt_start.Enabled = false;
@@ -299,11 +299,11 @@ namespace PopAll_Article_Writer_Server
 
         private void bt_stop_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in lv_list.Items)
-            {
-                udpSocket.SendTo(Encoding.UTF8.GetBytes("작업종료"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
-                item.SubItems[2].Text = "종료대기";
-            }
+            //foreach (ListViewItem item in lv_list.Items)
+            //{
+            //    udpSocket.SendTo(Encoding.UTF8.GetBytes("작업종료"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
+            //    item.SubItems[2].Text = "종료대기";
+            //}
             SetIndex("OFF");
             //th.Abort();
             LogAdd("Work Stop");

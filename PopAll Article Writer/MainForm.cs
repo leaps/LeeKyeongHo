@@ -426,9 +426,11 @@ namespace PopAll_Article_Writer_Client
                     }
                     else
                     {
+                        if (write.IsAlive)
+                            continue;
                         WorkState = true;
                         //Console.WriteLine("작업시작");
-                        //write.Start();
+                        write.Start();
                         continue;
                     }
                 }
