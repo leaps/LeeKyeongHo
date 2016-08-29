@@ -32,15 +32,15 @@
             this.lv_request = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lv_ok = new System.Windows.Forms.ListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cm_request = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.acceptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refusalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lv_ok = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cm_ok = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.refusalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.bt_refresh = new System.Windows.Forms.Button();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cm_request.SuspendLayout();
             this.cm_ok.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +70,29 @@
             this.columnHeader2.Text = "HDD Serial";
             this.columnHeader2.Width = 182;
             // 
+            // cm_request
+            // 
+            this.cm_request.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.acceptToolStripMenuItem,
+            this.refusalToolStripMenuItem});
+            this.cm_request.Name = "cm_request";
+            this.cm_request.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cm_request.Size = new System.Drawing.Size(113, 48);
+            // 
+            // acceptToolStripMenuItem
+            // 
+            this.acceptToolStripMenuItem.Name = "acceptToolStripMenuItem";
+            this.acceptToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.acceptToolStripMenuItem.Text = "Accept";
+            this.acceptToolStripMenuItem.Click += new System.EventHandler(this.acceptToolStripMenuItem_Click);
+            // 
+            // refusalToolStripMenuItem
+            // 
+            this.refusalToolStripMenuItem.Name = "refusalToolStripMenuItem";
+            this.refusalToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.refusalToolStripMenuItem.Text = "Refusal";
+            this.refusalToolStripMenuItem.Click += new System.EventHandler(this.refusalToolStripMenuItem_Click);
+            // 
             // lv_ok
             // 
             this.lv_ok.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -95,43 +118,13 @@
             this.columnHeader4.Text = "HDD Serial";
             this.columnHeader4.Width = 182;
             // 
-            // cm_request
-            // 
-            this.cm_request.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.acceptToolStripMenuItem,
-            this.refusalToolStripMenuItem});
-            this.cm_request.Name = "cm_request";
-            this.cm_request.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cm_request.Size = new System.Drawing.Size(113, 48);
-            // 
-            // acceptToolStripMenuItem
-            // 
-            this.acceptToolStripMenuItem.Name = "acceptToolStripMenuItem";
-            this.acceptToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.acceptToolStripMenuItem.Text = "Accept";
-            this.acceptToolStripMenuItem.Click += new System.EventHandler(this.acceptToolStripMenuItem_Click);
-            // 
-            // refusalToolStripMenuItem
-            // 
-            this.refusalToolStripMenuItem.Name = "refusalToolStripMenuItem";
-            this.refusalToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.refusalToolStripMenuItem.Text = "Refusal";
-            this.refusalToolStripMenuItem.Click += new System.EventHandler(this.refusalToolStripMenuItem_Click);
-            // 
             // cm_ok
             // 
             this.cm_ok.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refusalToolStripMenuItem1});
+            this.removeToolStripMenuItem});
             this.cm_ok.Name = "cm_ok";
             this.cm_ok.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cm_ok.Size = new System.Drawing.Size(113, 26);
-            // 
-            // refusalToolStripMenuItem1
-            // 
-            this.refusalToolStripMenuItem1.Name = "refusalToolStripMenuItem1";
-            this.refusalToolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
-            this.refusalToolStripMenuItem1.Text = "Refusal";
-            this.refusalToolStripMenuItem1.Click += new System.EventHandler(this.refusalToolStripMenuItem1_Click);
+            this.cm_ok.Size = new System.Drawing.Size(153, 48);
             // 
             // bt_refresh
             // 
@@ -142,6 +135,13 @@
             this.bt_refresh.Text = "Refresh";
             this.bt_refresh.UseVisualStyleBackColor = true;
             this.bt_refresh.Click += new System.EventHandler(this.bt_refresh_Click);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -177,8 +177,8 @@
         private System.Windows.Forms.ToolStripMenuItem acceptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refusalToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cm_ok;
-        private System.Windows.Forms.ToolStripMenuItem refusalToolStripMenuItem1;
         private System.Windows.Forms.Button bt_refresh;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
     }
 }
 

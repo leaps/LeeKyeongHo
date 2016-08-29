@@ -179,7 +179,7 @@ namespace PopAll_Article_Writer_Admin
             GetRequestUsers();
         }
 
-        private void refusalToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DelOkUser(lv_ok.FocusedItem.Text + "ㅥ" + lv_ok.FocusedItem.SubItems[1].Text + "|", variables.OkSendValue);
             MessageBox.Show("삭제하였습니다.");
