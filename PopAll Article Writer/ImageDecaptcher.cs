@@ -18,7 +18,7 @@ namespace PopAll_Article_Writer_Client
             string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
             string answer_captcha;
             double balance;
-            FileStream fs = new FileStream(path + @"\pic.png", FileMode.Open);
+            FileStream fs = new FileStream(path + @"\pics.png", FileMode.Open);
             byte[] buffer = new byte[fs.Length];
             fs.Read(buffer, 0, buffer.Length);
             fs.Close();
