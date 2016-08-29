@@ -182,7 +182,7 @@ namespace PopAll_Article_Writer_Server
             lvi_item.SubItems.Add(rcvs.Split('|')[0]);
             lvi_item.SubItems.Add(rcvs.Split('|')[1]);
             lv_log.Items.Add(lvi_item);
-            lv_log.EnsureVisible(lv.Items.Count - 1);
+            lv_log.EnsureVisible(lv_log.Items.Count - 1);
         }
 
         void SetArticle(string subject, string body)
@@ -291,7 +291,7 @@ namespace PopAll_Article_Writer_Server
                 udpSocket.SendTo(Encoding.UTF8.GetBytes("작업시작"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
                 item.SubItems[2].Text = "작업대기";
             }
-            //SetIndex("ON");
+            SetIndex("ON");
             LogAdd("Work Start");
             bt_start.Enabled = false;
             bt_stop.Enabled = true;
@@ -304,7 +304,7 @@ namespace PopAll_Article_Writer_Server
                 udpSocket.SendTo(Encoding.UTF8.GetBytes("작업종료"), new IPEndPoint(IPAddress.Parse(item.SubItems[0].Text), 2040));
                 item.SubItems[2].Text = "종료대기";
             }
-            //SetIndex("OFF");
+            SetIndex("OFF");
             //th.Abort();
             LogAdd("Work Stop");
             bt_start.Enabled = true;
