@@ -421,7 +421,7 @@ namespace PopAll_Article_Writer_Client
                     {
                         //이미작업함
                         //SendPacket("None", "서버접속");
-                        write.Abort();
+                        //write.Abort();
                         continue;
                     }
                     else
